@@ -1,5 +1,6 @@
 package com.example.bbbb.teamproject;
 
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TabHost;
@@ -11,11 +12,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TabHost host = (TabHost)findViewById(R.id.host);
+        TabHost host = (TabHost) findViewById(R.id.host);
         host.setup();
 
         TabHost.TabSpec spec = host.newTabSpec("tab1");
         spec.setContent(R.id.tab_content1);
+        //spec.setIndicator(null, ResourcesCompat.getDrawable(getResources(), R.drawable.tab_home, null));
         spec.setIndicator("홈");
         host.addTab(spec);
 
@@ -31,10 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         spec = host.newTabSpec("tab4");
         spec.setContent(R.id.tab_content4);
-        spec.setIndicator("리뷰 작성하기");
+        spec.setIndicator("리뷰");
         host.addTab(spec);
-
-
 
 
     }
