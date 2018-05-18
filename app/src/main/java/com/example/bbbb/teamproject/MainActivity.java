@@ -16,22 +16,22 @@ public class MainActivity extends AppCompatActivity {
 
         TabHost.TabSpec spec = host.newTabSpec("tab1");
         spec.setContent(R.id.tab_content1);
-        spec.setIndicator("Tab 1");
+        spec.setIndicator("홈");
         host.addTab(spec);
 
         spec = host.newTabSpec("tab2");
         spec.setContent(R.id.tab_content2);
-        spec.setIndicator("Tab 2");
+        spec.setIndicator("모아보기");
         host.addTab(spec);
 
         spec = host.newTabSpec("tab3");
         spec.setContent(R.id.tab_content3);
-        spec.setIndicator("Tab 3");
+        spec.setIndicator("랜덤");
         host.addTab(spec);
 
         spec = host.newTabSpec("tab4");
         spec.setContent(R.id.tab_content4);
-        spec.setIndicator("Tab 4");
+        spec.setIndicator("리뷰 작성하기");
         host.addTab(spec);
 
 
