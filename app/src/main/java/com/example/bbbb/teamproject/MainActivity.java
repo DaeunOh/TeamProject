@@ -16,6 +16,7 @@ import android.widget.TabHost;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+
     android.support.v7.widget.SearchView searchView;
 
     @Override
