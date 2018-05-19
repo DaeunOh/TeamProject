@@ -43,6 +43,35 @@
                 android:layout_weight="1">
 
                 <android.support.constraint.ConstraintLayout
+                    android:id="@+id/tab_content3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/game_roulette" />
+
+                    <ImageButton
+                        android:id="@+id/button_roulette"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.433"
+                        app:srcCompat="@drawable/roulette_start_button" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/tab_content2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -280,128 +309,6 @@
                         android:textColor="@android:color/white"
                         app:layout_constraintTop_toBottomOf="@id/imageView2"
                         app:layout_constraintEnd_toEndOf="parent"/>
-
-                </android.support.constraint.ConstraintLayout>
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/tab_content3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="34dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="124dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <CheckBox
-                            android:id="@+id/price5000"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="~5000"
-                            tools:layout_editor_absoluteX="127dp"
-                            tools:layout_editor_absoluteY="41dp" />
-
-                        <CheckBox
-                            android:id="@+id/price10000"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="~10000"
-                            tools:layout_editor_absoluteX="16dp"
-                            tools:layout_editor_absoluteY="41dp" />
-
-                        <CheckBox
-                            android:id="@+id/price15000"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="~15000" />
-
-                        <CheckBox
-                            android:id="@+id/price20000"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="15000이상" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="60dp"
-                        android:text="가격대"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:text="종류"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="34dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="44dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <CheckBox
-                            android:id="@+id/type_ko"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="한식"
-                            tools:layout_editor_absoluteX="127dp"
-                            tools:layout_editor_absoluteY="41dp" />
-
-                        <CheckBox
-                            android:id="@+id/type_ch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="중식"
-                            tools:layout_editor_absoluteX="16dp"
-                            tools:layout_editor_absoluteY="41dp" />
-
-                        <CheckBox
-                            android:id="@+id/type_jp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="일식" />
-
-                        <CheckBox
-                            android:id="@+id/type_bu"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="분식" />
-
-                        <CheckBox
-                            android:id="@+id/type_ff"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="패스트푸드" />
-                    </LinearLayout>
 
                 </android.support.constraint.ConstraintLayout>
 

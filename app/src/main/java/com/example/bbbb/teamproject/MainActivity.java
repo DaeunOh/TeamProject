@@ -1,9 +1,11 @@
 package com.example.bbbb.teamproject;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TabHost host = (TabHost) findViewById(R.id.host);
+        ImageButton rouletteButton = findViewById(R.id.button_roulette);
+
+        new Roulette(MainActivity.this).setComponents(rouletteButton);
+
         host.setup();
 
         TabHost.TabSpec spec = host.newTabSpec("tab1");
@@ -94,15 +102,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void selectFragment(View view){
-        Fragment fr=null;
+    public void selectFragment(View view) {
+        Fragment fr = null;
 
-        switch (view.getId()){
-            case R.id. button_map:
-                fr=new Fragment2_1();
+        switch (view.getId()) {
+            case R.id.button_map:
+                fr = new Fragment2_1();
                 break;
             case R.id.button_sort:
-                fr=new Fragment2_2();
+                fr = new Fragment2_2();
                 break;
         }
 
@@ -114,18 +122,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar_actions, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id){
-            case android.R.id.home:
-            {
+        switch (id) {
+            case android.R.id.home: {
 
                 return true;
             }
