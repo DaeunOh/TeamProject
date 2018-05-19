@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app ="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/opt_menu"
+        app:showAsAction="always"
+        android:title="option"
+        android:icon="@drawable/home"
+        android:orderInCategory="2">
+
+        <item
+            android:id="@+id/lang"
+            android:title="언어설정"/>
+
+        <item
+            android:id="@+id/colorch"
+            android:title="테마색변경"/>
+    </item>
+
+</menu>

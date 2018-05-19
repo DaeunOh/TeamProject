@@ -13,6 +13,29 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize">
+
+                <android.support.v7.widget.SearchView
+                    android:id="@+id/menu_search"
+                    android:icon="@drawable/search"
+                    android:orderInCategory="1"
+                    android:title="검색"
+                    app:actionViewClass="android.support.v7.widget.SearchView"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_width="match_parent" />
+
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="match_parent"
@@ -391,5 +414,4 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
 </TabHost>

@@ -1,11 +1,18 @@
 package com.example.bbbb.teamproject;
 
-import android.support.v4.content.res.ResourcesCompat;
+import android.app.SearchManager;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TabHost;
 
 public class MainActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
+    android.support.v7.widget.SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,59 @@ public class MainActivity extends AppCompatActivity {
         spec.setIndicator("리뷰");
         host.addTab(spec);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.home);
+
+
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView = findViewById(R.id.menu_search);
+        searchView.onActionViewExpanded();
+        searchView.setQueryHint("이름을 검색하시오");
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+            //검색 버튼을 클릭했을 때 동작하는 이벤트 query:입력된 검색어
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.putExtra("query", query);
+
+
+                return false;
+            }
+
+            //검색어를 입력할 때 동작하는거
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.actionbar_actions, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        switch (id){
+            case android.R.id.home:
+            {
+
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }
+
