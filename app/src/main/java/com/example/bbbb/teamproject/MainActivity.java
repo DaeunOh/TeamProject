@@ -1,5 +1,8 @@
 package com.example.bbbb.teamproject;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TabHost;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +36,19 @@ public class MainActivity extends AppCompatActivity {
         spec.setContent(R.id.tab_content2);
         spec.setIndicator("모아보기");
         host.addTab(spec);
+
+        if (findViewById(R.id.fragment_container) != null) {
+
+            if (savedInstanceState != null) {
+                return;
+            }
+
+            Fragment2_1 firstFragment = new Fragment2_1();
+
+            getFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, firstFragment).commit();
+        }
+
 
         spec = host.newTabSpec("tab3");
         spec.setContent(R.id.tab_content3);
@@ -74,6 +91,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void selectFragment(View view){
+        Fragment fr=null;
+
+        switch (view.getId()){
+            case R.id. button_map:
+                fr=new Fragment2_1();
+                break;
+            case R.id.button_sort:
+                fr=new Fragment2_2();
+                break;
+        }
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fr);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
