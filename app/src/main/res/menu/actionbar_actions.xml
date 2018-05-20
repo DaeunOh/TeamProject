@@ -6,7 +6,6 @@
         android:id="@+id/opt_menu"
         app:showAsAction="always"
         android:title="option"
-        android:icon="@drawable/home"
         android:orderInCategory="2">
 
         <item

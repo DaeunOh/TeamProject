@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="start"
+    android:id="@+id/drawer_layout"
+    tools:context=".MainActivity">
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#dc716d"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/mypro"
+                android:layout_margin="10dp"/>
+
+            <Button
+                android:id="@+id/my_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="내정보"
+                android:background="#00ff0000"
+                android:gravity="left"
+                android:onClick="onclick"
+                android:layout_margin="5dp"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/my_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00ff0000"
+                android:textSize="18sp"
+                android:layout_margin="5dp"
+                android:onClick="onclick"
+                android:text="리뷰관리"
+                android:gravity="left"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
+        <!--<View-->
+            <!--android:layout_width="160dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/drawer"-->
+            <!--android:layout_gravity="start"-->
+            <!--android:background="#00ff0000"/>-->
+
+</android.support.v4.widget.DrawerLayout>
