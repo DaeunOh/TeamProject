@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         TabHost host = (TabHost) findViewById(R.id.host);
         ImageButton rouletteButton = findViewById(R.id.button_roulette);
 
