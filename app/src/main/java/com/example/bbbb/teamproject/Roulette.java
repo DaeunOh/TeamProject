@@ -12,12 +12,14 @@ import android.widget.Toast;
  * Created by bbbb_ on 2018-05-20.
  */
 
-public class Roulette{
+public class Roulette {
     Context context;
-    public Roulette(Context context){
+
+    public Roulette(Context context) {
         this.context = context;
     }
-    public void setComponents(ImageButton button){
+
+    public void setComponents(ImageButton button) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

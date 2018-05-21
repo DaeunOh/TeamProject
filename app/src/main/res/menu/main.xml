@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app ="http://schemas.android.com/apk/res-auto">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/opt_menu"
         app:showAsAction="always"
-        android:title="option"
-        android:orderInCategory="2">
+        android:title="option">
 
         <item
             android:id="@+id/lang"
@@ -16,5 +14,4 @@
             android:id="@+id/colorch"
             android:title="테마색변경"/>
     </item>
-
 </menu>
