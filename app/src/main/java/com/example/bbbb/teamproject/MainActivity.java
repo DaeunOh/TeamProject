@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity
 
     private Button mapButton;
     private Button sortButton;
-    private android.support.v7.widget.SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity
         ImageButton rouletteButton = (ImageButton) findViewById(R.id.button_roulette);
         mapButton = (Button) findViewById(R.id.button_map);
         sortButton = (Button) findViewById(R.id.button_sort);
-        searchView = findViewById(R.id.menu_search);
         Button reviewButton = (Button) findViewById(R.id.button_review);
         final EditText reviewText = findViewById(R.id.review_text);
         final AutoCompleteTextView searchText = findViewById(R.id.search_text);
@@ -108,6 +107,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -118,32 +118,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-
-//        searchView.onActionViewExpanded();
-        searchView.setQueryHint("이름을 검색하시오");
-        searchView.setIconified(true);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.clearFocus();
-        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
-            //검색 버튼을 클릭했을 때 동작하는 이벤트 query:입력된 검색어
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                intent.putExtra("query", query);
-                searchView.clearFocus();
-
-                return false;
-            }
-
-            //검색어를 입력할 때 동작하는거
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
     }
 
     public void selectFragment(View view) {
@@ -182,7 +156,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setQueryHint("상점을 입력하시오.");
+        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
         return true;
     }
 
@@ -197,6 +189,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.lang) {
             return true;
         } else if (id == R.id.colorch) {
+            return true;
+        } else if (id == R.id.menu_search) {
             return true;
         }
 
@@ -219,6 +213,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }
+
 

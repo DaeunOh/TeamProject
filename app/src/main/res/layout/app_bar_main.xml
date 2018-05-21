@@ -12,43 +12,33 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPink"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <TextView
-                android:id="@+id/toolbar_title"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="아!맛나"
-                android:textColor="@color/colorPrimary"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPink"
+                app:popupTheme="@style/AppTheme.PopupOverlay" >
 
-            <android.support.v7.widget.SearchView
-                android:id="@+id/menu_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="right"
-                android:icon="@drawable/search"
-                android:title="검색"
-                app:actionViewClass="android.support.v7.widget.SearchView" />
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="아!맛나"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="25sp"/>
 
-        </android.support.v7.widget.Toolbar>
+            </android.support.v7.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+        </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+        <include layout="@layout/content_main" />
 
         <TabWidget
             android:id="@android:id/tabs"

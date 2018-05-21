@@ -2,8 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_search"
+        app:showAsAction="always"
+        android:icon="@drawable/search"
+        android:title="검색"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
+
+    <item
         android:id="@+id/opt_menu"
         app:showAsAction="always"
+        android:iconTint="@color/colorPink"
+        android:icon="@color/colorPink"
         android:title="option">
 
         <item
