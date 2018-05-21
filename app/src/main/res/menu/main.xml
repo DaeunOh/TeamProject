@@ -11,8 +11,6 @@
     <item
         android:id="@+id/opt_menu"
         app:showAsAction="always"
-        android:iconTint="@color/colorPink"
-        android:icon="@color/colorPink"
         android:title="option">
 
         <item

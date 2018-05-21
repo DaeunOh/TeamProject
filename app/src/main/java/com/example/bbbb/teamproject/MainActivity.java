@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity
         searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(getApplicationContext(), "탐색완료!", Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -187,8 +188,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.lang) {
+            Toast.makeText(getApplicationContext(), "Success English!", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.colorch) {
+            Toast.makeText(getApplicationContext(), "색변경!", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.menu_search) {
             return true;
@@ -204,9 +207,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.my_info) {
-
+            Toast.makeText(getApplicationContext(), "내정보관리", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.my_review) {
-
+            Toast.makeText(getApplicationContext(), "리뷰관리", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
