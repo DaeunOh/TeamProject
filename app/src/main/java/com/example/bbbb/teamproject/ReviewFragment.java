@@ -26,14 +26,14 @@ public class ReviewFragment extends ListFragment {
 
          // 세 번째 아이템 추가.
          adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
-        adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
+         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
+         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
+         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
+         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
+         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
+         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
+         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
+         adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
 
          return super.onCreateView(inflater, container, savedInstanceState);
          }
