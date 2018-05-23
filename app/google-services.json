@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "148538176438",
-    "firebase_url": "https://teamproject-48bc6.firebaseio.com",
-    "project_id": "teamproject-48bc6",
-    "storage_bucket": "teamproject-48bc6.appspot.com"
+    "project_number": "818590827055",
+    "firebase_url": "https://teamproject-9a16c.firebaseio.com",
+    "project_id": "teamproject-9a16c",
+    "storage_bucket": "teamproject-9a16c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:148538176438:android:4dff07184c7d0708",
+        "mobilesdk_app_id": "1:818590827055:android:4dff07184c7d0708",
         "android_client_info": {
           "package_name": "com.example.bbbb.teamproject"
         }
       },
       "oauth_client": [
         {
-          "client_id": "148538176438-bbfmhhh9b62a6v1qksp5d6g4lkragr7r.apps.googleusercontent.com",
+          "client_id": "818590827055-8me14mtsbdviiceh2eeu610ca1bpse4k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bbbb.teamproject",
+            "certificate_hash": "20bdbb2ae7ec65943e4485fcbe8b513e9c0c1c13"
+          }
+        },
+        {
+          "client_id": "818590827055-t1a57mv9h32r6t83b53cgs7aoc40eb6u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBBcpqG8Zjz_XaJSdAgoUbxfYzxOU2HacY"
+          "current_key": "AIzaSyBFoeUgEhUE4EUIIrMx2HrfQ00Spw0NrGY"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818590827055-t1a57mv9h32r6t83b53cgs7aoc40eb6u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
