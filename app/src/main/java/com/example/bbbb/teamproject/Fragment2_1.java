@@ -101,13 +101,13 @@ public class Fragment2_1 extends Fragment implements OnMapReadyCallback {
     public void onMapReady(final GoogleMap googleMap) {
         LatLng ajouUniv = new LatLng(37.277516, 127.043829);
 
-        LatLng 천애부 = new LatLng(37.279168, 127.043357);
-        LatLng 아롤도그 = new LatLng(37.279036, 127.043540);
-        LatLng 맘스터치 = new LatLng(37.279015, 127.043503);
+        LatLng index1 = new LatLng(37.279168, 127.043357);
+        LatLng index2 = new LatLng(37.279036, 127.043540);
+        LatLng index3 = new LatLng(37.279015, 127.043503);
 
-        googleMap.addMarker(new MarkerOptions().position(천애부).title("천애부").alpha(0.5f));
-        googleMap.addMarker(new MarkerOptions().position(아롤도그).title("아롤도그").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-        googleMap.addMarker(new MarkerOptions().position(맘스터치).title("맘스터치").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+        googleMap.addMarker(new MarkerOptions().position(index1).title("천애부").alpha(0.5f));
+        googleMap.addMarker(new MarkerOptions().position(index2).title("아롤도그").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+        googleMap.addMarker(new MarkerOptions().position(index3).title("맘스터치").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ajouUniv, 16));
 
@@ -116,6 +116,7 @@ public class Fragment2_1 extends Fragment implements OnMapReadyCallback {
             @Override
             public void onInfoWindowClick(Marker marker) {
                 Intent intent = new Intent(getActivity(), Store.class);
+                intent.putExtra("title", marker.getTitle());
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
             }
