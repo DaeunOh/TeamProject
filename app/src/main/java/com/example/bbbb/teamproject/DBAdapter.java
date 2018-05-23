@@ -148,7 +148,7 @@ public class DBAdapter {
         db = DBHelper.getReadableDatabase();
         return null;
     }
-    
+
     // 읽고 쓰기 모드로 데이터베이스 오픈
     public SQLiteDatabase getWritableDatabase() {
         // TODO Auto-generated method stub

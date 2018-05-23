@@ -213,82 +213,43 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/tab_content4"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/tab_content4"
+        tools:context="com.bingnerdranch.android.drawlayout_practice.ReviewFragment">
 
-        <LinearLayout
-            android:id="@+id/linear1"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
 
-            <AutoCompleteTextView
-                android:id="@+id/search_text"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:hint="상점을 입력해 주세요."
-                android:textColor="#999999"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/search_button"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.05"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/search" />
-        </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_review"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@drawable/ic_menu_send"
+            android:onClick="addReiew"/>
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:layout_marginTop="20dp"
-            android:background="#FFF3F3F3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear1" />
-
-        <EditText
-            android:id="@+id/review_text"
-            android:layout_width="320dp"
-            android:layout_height="320dp"
-            android:layout_marginTop="15dp"
-            android:background="@null"
-            android:ems="10"
-            android:gravity="top"
-            android:hint="리뷰를 작성해 주세요."
-            android:inputType="textMultiLine"
-            android:textColor="#999999"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imageView2" />
-
-        <Button
-            android:id="@+id/button_review"
+        <fragment
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/colorPink"
-            android:text="등록"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView2" />
+            android:id="@+id/customlistfragment"
+            android:name="com.example.bbbb.teamproject.ReviewFragment"
+            tools:layout="@layout/content_main"/>
 
-    </android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/review_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
 
 
 </FrameLayout>

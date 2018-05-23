@@ -4,4 +4,5 @@
     <color name="colorGray">#FFaaaaaa</color>
     <color name="colorPink">#d95550</color>
     <color name="colorLightPink">#cc7976</color>
+    <color name="color_reviewlistbg">#d6a09e</color>
 </resources>

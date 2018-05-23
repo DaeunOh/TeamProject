@@ -8,6 +8,7 @@ import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity
 
     private Button mapButton;
     private Button sortButton;
+    private FloatingActionButton reviewButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +45,6 @@ public class MainActivity extends AppCompatActivity
         mapButton = (Button) findViewById(R.id.button_map);
         sortButton = (Button) findViewById(R.id.button_sort);
         Button reviewButton = (Button) findViewById(R.id.button_review);
-        final EditText reviewText = findViewById(R.id.review_text);
-        final AutoCompleteTextView searchText = findViewById(R.id.search_text);
 
         new Roulette(MainActivity.this).setComponents(rouletteButton);
 
@@ -81,29 +81,16 @@ public class MainActivity extends AppCompatActivity
         spec.setIndicator(null, ResourcesCompat.getDrawable(getResources(), R.drawable.tab_pen, null));
         host.addTab(spec);
 
-        reviewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setTitle("리뷰를 등록하시겠습니까?")
-                        .setPositiveButton("등록", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(MainActivity.this, "리뷰가 성공적으로 등록되었습니다.", Toast.LENGTH_SHORT).show();
-                                searchText.setText("");
-                                reviewText.setText("");
-                            }
-                        })
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(MainActivity.this, "취소 버튼을 눌렀습니다.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                dialog.create();
-                dialog.show();
+        if (findViewById(R.id.fragment_container) != null) {
+            if (savedInstanceState != null) {
+                return;
             }
-        });
+
+            ReviewFragment reviewFragment = new ReviewFragment();
+
+            getFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, reviewFragment).commit();
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -151,6 +138,22 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void addReiew(View view) {
+        Fragment fr = null;
+
+        switch (view.getId()) {
+            case R.id.add_review:
+                fr = new AddreviewFragment();
+                break;
+        }
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.review_container, fr);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
