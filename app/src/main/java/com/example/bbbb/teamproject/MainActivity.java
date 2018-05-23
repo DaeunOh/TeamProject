@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity
         mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "무한통삼" + ".jpg");
         Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton6);
 
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = database.getReference();
         DatabaseReference mTitleRef = mDatabase.child("Restaurant").child("천애부");
