@@ -1,6 +1,10 @@
 package com.example.bbbb.teamproject;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,9 +37,7 @@ public class Fragment2_1 extends Fragment implements OnMapReadyCallback {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
-
         View layout = inflater.inflate(R.layout.fragment2_1, container, false);
-
         mapView = (MapView) layout.findViewById(R.id.map);
         mapView.getMapAsync(this);
 
@@ -113,6 +115,9 @@ public class Fragment2_1 extends Fragment implements OnMapReadyCallback {
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
+                Intent intent = new Intent(getActivity(), Store.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
             }
         });
 
