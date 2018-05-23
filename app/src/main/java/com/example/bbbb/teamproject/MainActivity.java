@@ -26,7 +26,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,6 +56,139 @@ public class MainActivity extends AppCompatActivity
         mapButton = (Button) findViewById(R.id.button_map);
         sortButton = (Button) findViewById(R.id.button_sort);
         Button reviewButton = (Button) findViewById(R.id.button_review);
+
+        ImageButton imageButton1 = findViewById(R.id.imageButton);
+        ImageButton imageButton2 = findViewById(R.id.imageButton2);
+        ImageButton imageButton3 = findViewById(R.id.imageButton3);
+        ImageButton imageButton4 = findViewById(R.id.imageButton4);
+        ImageButton imageButton5 = findViewById(R.id.imageButton5);
+        ImageButton imageButton6 = findViewById(R.id.imageButton6);
+
+        final TextView textView1 = findViewById(R.id.textView);
+        final TextView textView2 = findViewById(R.id.textView2);
+        final TextView textView3 = findViewById(R.id.textView3);
+        final TextView textView4 = findViewById(R.id.textView4);
+        final TextView textView5 = findViewById(R.id.textView5);
+        final TextView textView6 = findViewById(R.id.textView6);
+
+        StorageReference mStorageRef;
+
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "천애부" + ".jpg");
+        Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton1);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "아롤도그" + ".jpg");
+        Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton2);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "맘스터치" + ".jpg");
+        Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton3);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "깐돌이네" + ".jpg");
+        Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton4);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "육쌈냉면" + ".jpg");
+        Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton5);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "무한통삼" + ".jpg");
+        Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton6);
+
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabase = database.getReference();
+        DatabaseReference mTitleRef = mDatabase.child("Restaurant").child("천애부");
+        DatabaseReference mNameRef = mTitleRef.child("name");
+
+        mNameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue(String.class);
+                textView1.setText(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mTitleRef = mDatabase.child("Restaurant").child("아롤도그");
+        mNameRef = mTitleRef.child("name");
+
+        mNameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue(String.class);
+                textView2.setText(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mTitleRef = mDatabase.child("Restaurant").child("맘스터치");
+        mNameRef = mTitleRef.child("name");
+
+        mNameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue(String.class);
+                textView3.setText(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mTitleRef = mDatabase.child("Restaurant").child("깐돌이네");
+        mNameRef = mTitleRef.child("name");
+
+        mNameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue(String.class);
+                textView4.setText(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mTitleRef = mDatabase.child("Restaurant").child("육쌈냉면");
+        mNameRef = mTitleRef.child("name");
+
+        mNameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue(String.class);
+                textView5.setText(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mTitleRef = mDatabase.child("Restaurant").child("무한통삼");
+        mNameRef = mTitleRef.child("name");
+
+        mNameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue(String.class);
+                textView6.setText(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         new Roulette(MainActivity.this).setComponents(rouletteButton);
 
