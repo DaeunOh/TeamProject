@@ -34,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="상점을 입력해 주세요."
+            android:hint="@string/hintsearch"
             android:textColor="#999999"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +60,7 @@
         android:background="@null"
         android:ems="10"
         android:gravity="top"
-        android:hint="리뷰를 작성해 주세요."
+        android:hint="@string/review"
         android:inputType="textMultiLine"
         android:textColor="#999999"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +74,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="20dp"
         android:background="@color/colorPink"
-        android:text="등록"
+        android:text="@string/enrollment"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageView2" />

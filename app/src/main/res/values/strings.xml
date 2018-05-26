@@ -1,10 +1,31 @@
-<resources>
-    <string name="app_name">아주대맛집</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">AJOU DELICIOUS FOOD</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="recommend" tools:ignore="StringEscaping"> * Today's recommendation * </string>
+    <string name="map">View by Map</string>
+    <string name="sort">View by type</string>
+    <string name="korean">Korean</string>
+    <string name="chinese">Chinese</string>
+    <string name="japanese">Japanese</string>
+    <string name="snackbar">Snackbar</string>
+    <string name="fastfood">Fastfood</string>
+    <string name="andsoon">And so on</string>
+    <string name="checksort">Please select a type</string>
+    <string name="hintsearch">Please enter your store.</string>
+    <string name="review">Please write a review.</string>
+    <string name="enrollment">enrollment</string>
+    <string name="enrollmentreview">Do you want to register reviews?</string>
+    <string name="cancel">cancel</string>
+    <string name="sucessreview">Your review was successfully registered.</string>
+    <string name="canlebutton">Cancel button pressed.</string>
+
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
