@@ -9,6 +9,42 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+    <RelativeLayout
+        android:id="@+id/tab_content4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.bingnerdranch.android.drawlayout_practice.ReviewFragment">
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="addReiew"
+            app:srcCompat="@drawable/ic_menu_send" />
+
+        <fragment
+            android:id="@+id/customlistfragment"
+            android:name="com.example.bbbb.teamproject.ReviewFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_review_content" />
+
+        <LinearLayout
+            android:id="@+id/review_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/tab_content1"
         android:layout_width="match_parent"
@@ -233,43 +269,6 @@
             app:srcCompat="@drawable/roulette_start_button" />
 
     </android.support.constraint.ConstraintLayout>
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/tab_content4"
-        tools:context="com.bingnerdranch.android.drawlayout_practice.ReviewFragment">
-
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/add_review"
-            android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@drawable/ic_menu_send"
-            android:onClick="addReiew"/>
-
-        <fragment
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/customlistfragment"
-            android:name="com.example.bbbb.teamproject.ReviewFragment"
-            tools:layout="@layout/content_main"/>
-
-        <LinearLayout
-            android:id="@+id/review_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </RelativeLayout>
 
 
 </FrameLayout>
