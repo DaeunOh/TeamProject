@@ -108,17 +108,6 @@ public class MainActivity extends AppCompatActivity
         spec.setIndicator(null, ResourcesCompat.getDrawable(getResources(), R.drawable.tab_pen, null));
         host.addTab(spec);
 
-//        if (findViewById(R.id.fragment_container) != null) {
-//            if (savedInstanceState != null) {
-//                return;
-//            }
-//
-//            ReviewFragment reviewFragment = new ReviewFragment();
-//
-//            getFragmentManager().beginTransaction()
-//                    .add(R.id.fragment_container, reviewFragment).commit();
-//        }
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
