@@ -36,7 +36,7 @@
 
             <CheckBox
                 android:id="@+id/type_ko"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/korean"
@@ -45,7 +45,7 @@
 
             <CheckBox
                 android:id="@+id/type_ch"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/chinese"
@@ -54,7 +54,7 @@
 
             <CheckBox
                 android:id="@+id/type_jp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/japanese" />
@@ -70,21 +70,23 @@
 
             <CheckBox
                 android:id="@+id/type_bu"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/snackbar" />
 
             <CheckBox
                 android:id="@+id/type_ff"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fastfood" />
+                android:text="@string/fastfood"
+                tools:layout_editor_absoluteX="84dp"
+                tools:layout_editor_absoluteY="369dp" />
 
             <CheckBox
                 android:id="@+id/aso"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/andsoon" />
