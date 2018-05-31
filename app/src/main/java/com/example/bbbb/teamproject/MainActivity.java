@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -17,8 +19,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ImageButton imageButton1, imageButton2, imageButton3, imageButton4, imageButton5, imageButton6;
+    private ImageView rimage;
     private TextView textView1, textView2, textView3, textView4, textView5, textView6;
 
     private Button mapButton;
@@ -73,7 +79,8 @@ public class MainActivity extends AppCompatActivity
         // 상점 선택
         selectStore();
 
-        new Roulette(MainActivity.this).setComponents(rouletteButton);
+
+
 
         host.setup();
 
@@ -102,6 +109,14 @@ public class MainActivity extends AppCompatActivity
         spec.setContent(R.id.tab_content3);
         spec.setIndicator(null, ResourcesCompat.getDrawable(getResources(), R.drawable.tab_roulette, null));
         host.addTab(spec);
+
+
+        //이미지를 직접 그려주는 방법
+
+        rimage= findViewById(R.id.RouletteImage);
+
+        new Roulette(MainActivity.this, rimage, getApplicationContext()).setComponents(rouletteButton);
+
 
         spec = host.newTabSpec("tab4");
         spec.setContent(R.id.tab_content4);
@@ -401,6 +416,8 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "색변경!", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.menu_search) {
+
+
             return true;
         }
 

@@ -4,8 +4,13 @@ package com.example.bbbb.teamproject;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -14,9 +19,16 @@ import android.widget.Toast;
 
 public class Roulette {
     Context context;
+    ImageView imageView;
+    Context context2;
 
-    public Roulette(Context context) {
+
+
+    public Roulette(Context context, ImageView imageView, Context context2) {
         this.context = context;
+        this.imageView = imageView;
+        this.context2 = context2;
+
     }
 
     public void setComponents(ImageButton button) {
@@ -58,8 +70,15 @@ public class Roulette {
                                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                Toast.makeText(context, "탐색중 ...", Toast.LENGTH_SHORT).show();
-                                            }
+
+                                                Animation animation = AnimationUtils.loadAnimation(context2, R.anim.rotate);
+                                                imageView.startAnimation(animation);
+
+                                                Toast.makeText(context2, "탐색중 ...", Toast.LENGTH_SHORT).show();
+
+
+
+                                                                                            }
                                         })
                                         .setNegativeButton("취소", new DialogInterface.OnClickListener() {
                                             @Override
@@ -81,5 +100,16 @@ public class Roulette {
                 dialog1.show();
             }
         });
+    }
+
+    public Bitmap rotateImage(Bitmap src, int i) {
+
+        // Matrix 객체 생성
+        Matrix matrix = new Matrix();
+        // 회전 각도 셋팅
+        matrix.postRotate(i,src.getWidth()/2,src.getHeight()/2);
+        // 이미지와 Matrix 를 셋팅해서 Bitmap 객체 생성
+        return Bitmap.createBitmap(src, 0, 0, src.getWidth(),
+                src.getHeight(), matrix, true);
     }
 }
