@@ -81,6 +81,7 @@ public class Store extends AppCompatActivity {
             }
         });
 
+
         mAddressRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
