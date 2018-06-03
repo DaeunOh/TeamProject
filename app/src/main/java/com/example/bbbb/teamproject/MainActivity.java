@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity
 
         rimage= findViewById(R.id.RouletteImage);
 
-        new Roulette(MainActivity.this, rimage, getApplicationContext()).setComponents(rouletteButton);
+        new Roulette(MainActivity.this, rimage, rouletteButton, getApplicationContext()).setComponents(rouletteButton);
 
 
         spec = host.newTabSpec("tab4");

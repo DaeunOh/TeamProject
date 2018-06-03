@@ -20,18 +20,20 @@ import android.widget.Toast;
 public class Roulette {
     Context context;
     ImageView imageView;
+    ImageButton button;
     Context context2;
 
 
 
-    public Roulette(Context context, ImageView imageView, Context context2) {
+    public Roulette(Context context, ImageView imageView,ImageButton button, Context context2) {
         this.context = context;
         this.imageView = imageView;
+        this.button=button;
         this.context2 = context2;
 
     }
 
-    public void setComponents(ImageButton button) {
+    public void setComponents(final ImageButton button) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +75,34 @@ public class Roulette {
 
                                                 Animation animation = AnimationUtils.loadAnimation(context2, R.anim.rotate);
                                                 imageView.startAnimation(animation);
+                                                // 가격대 선택했을 때
+                                            }
+                                                }
+                                        )
+                                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
 
+                                                Animation animation = AnimationUtils.loadAnimation(context2, R.anim.rotate);
+                                                Animation.AnimationListener animationListener = new Animation.AnimationListener() {
+                                                    @Override
+                                                    public void onAnimationStart(Animation animation) {
+                                                        button.setVisibility(View.INVISIBLE);
+                                                    }
+
+                                                    @Override
+                                                    public void onAnimationEnd(Animation animation) {
+                                                        button.setVisibility(View.VISIBLE);
+                                                    }
+
+                                                    @Override
+                                                    public void onAnimationRepeat(Animation animation) {
+
+                                                    }
+                                                };
+
+                                                animation.setAnimationListener(animationListener);
+                                                imageView.startAnimation(animation);
                                                 Toast.makeText(context2, "탐색중 ...", Toast.LENGTH_SHORT).show();
 
 

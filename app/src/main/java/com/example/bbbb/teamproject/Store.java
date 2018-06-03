@@ -36,6 +36,7 @@ public class Store extends AppCompatActivity {
 
     TextView nameTextView;
     TextView addressTextView;
+    TextView telTextView;
     ImageView image;
 
     @Override
@@ -62,6 +63,7 @@ public class Store extends AppCompatActivity {
 
         nameTextView = findViewById(R.id.store_name);
         addressTextView = findViewById(R.id.store_address);
+        telTextView=findViewById(R.id.store_tel);
     }
 
     @Override
@@ -87,6 +89,19 @@ public class Store extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String address = dataSnapshot.getValue(String.class);
                 addressTextView.setText(address);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mTelRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String tel = dataSnapshot.getValue(String.class);
+                telTextView.setText(tel);
             }
 
             @Override

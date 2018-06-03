@@ -45,35 +45,65 @@
 
     <ImageView
         android:id="@+id/image_restaurant"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_toolbar"
-        />
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar" />
 
     <TextView
         android:id="@+id/store_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="36dp"
         android:text="Name"
-        android:layout_marginTop="20dp"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_restaurant"/>
+        app:layout_constraintTop_toBottomOf="@+id/layout_toolbar" />
 
     <TextView
         android:id="@+id/store_address"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="12dp"
         android:text="Address"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/store_name" />
+
+    <ImageButton
+        android:id="@+id/call_button"
+        android:layout_width="47dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="112dp"
+        android:onClick="onClicked"
+        app:layout_constraintEnd_toStartOf="@+id/store_tel"
+        app:layout_constraintTop_toBottomOf="@+id/layout_toolbar"
+        app:srcCompat="@drawable/telephone" />
+
+    <TextView
+        android:id="@+id/store_tel"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="40dp"
+        android:text="tel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/store_address" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="122dp"
+        android:layout_marginTop="288dp"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/store_name"/>
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
