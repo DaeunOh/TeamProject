@@ -10,7 +10,6 @@ import android.view.ViewGroup;
  * Created by SUNSOOMIN on 2018-05-19.
  */
 
-
 public class Fragment2_2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
