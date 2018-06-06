@@ -59,8 +59,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
 
-        Intent intent = getIntent();
-        String check = intent.getStringExtra("check");
+        Intent myIntent = getIntent();
+        String check = myIntent.getStringExtra("check");
 
         if (currentUser != null && check.equals("checkIsFirstOpen")) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -126,6 +126,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onStop();
         if (mProgressDialog != null)
             mProgressDialog.dismiss();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
+            int pid = android.os.Process.myPid();
+            android.os.Process.killProcess(pid);
+        }
     }
 
     private void signIn() {
@@ -176,7 +183,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateUI(FirebaseUser user) {
-        hideProgressDialog();
         if (user != null) {
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
@@ -184,6 +190,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
         }
+        hideProgressDialog();
     }
 
     @Override
