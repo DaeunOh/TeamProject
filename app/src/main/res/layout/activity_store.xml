@@ -79,19 +79,20 @@
 
     <ImageButton
         android:id="@+id/call_button"
-        android:layout_width="47dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
+        android:layout_marginEnd="8dp"
         android:onClick="onclick"
         app:layout_constraintEnd_toStartOf="@+id/store_tel"
         app:layout_constraintTop_toBottomOf="@+id/layout_toolbar"
+        android:background="@null"
         app:srcCompat="@drawable/telephone" />
 
     <TextView
         android:id="@+id/store_tel"
         android:layout_width="120dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="40dp"
         android:text="tel"
