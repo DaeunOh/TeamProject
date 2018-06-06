@@ -7,11 +7,15 @@
         <item
             android:id="@+id/my_info"
             android:icon="@drawable/user"
-            android:title="내정보" />
+            android:title="내 정보" />
         <item
             android:id="@+id/my_review"
             android:icon="@drawable/tab_pen"
-            android:title="리뷰관리" />
+            android:title="리뷰 관리" />
+        <item
+            android:id="@+id/my_login"
+            android:icon="@drawable/login"
+            android:title="로그인 관리" />
     </group>
 
 </menu>

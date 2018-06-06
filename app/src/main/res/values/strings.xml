@@ -6,6 +6,9 @@
 
     <string name="action_settings">Settings</string>
 
+    <string name="signout">Sign out</string>
+    <string name="disconnect">Disconnect</string>
+
     <string name="recommend" tools:ignore="StringEscaping"> * Today's recommendation * </string>
     <string name="map">View by Map</string>
     <string name="sort">View by type</string>
@@ -23,8 +26,6 @@
     <string name="cancel">cancel</string>
     <string name="sucessreview">Your review was successfully registered.</string>
     <string name="canlebutton">Cancel button pressed.</string>
-
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

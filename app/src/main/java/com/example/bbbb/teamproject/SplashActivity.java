@@ -20,7 +20,10 @@ public class SplashActivity extends Activity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        startActivity(new Intent(this, MainActivity.class));
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("check", "checkIsFirstOpen");
+        startActivity(intent);
         finish();
     }
 }

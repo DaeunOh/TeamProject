@@ -88,8 +88,6 @@ public class MainActivity extends AppCompatActivity
         selectStore();
 
 
-
-
         host.setup();
 
         TabHost.TabSpec spec = host.newTabSpec("tab1");
@@ -121,7 +119,7 @@ public class MainActivity extends AppCompatActivity
 
         //이미지를 직접 그려주는 방법
 
-        rimage= findViewById(R.id.RouletteImage);
+        rimage = findViewById(R.id.RouletteImage);
 
         new Roulette(MainActivity.this, rimage, rouletteButton, getApplicationContext()).setComponents(rouletteButton);
 
@@ -466,6 +464,10 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "내정보관리", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.my_review) {
             Toast.makeText(getApplicationContext(), "리뷰관리", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.my_login) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.putExtra("check", "checkIsNotFirstOpen");
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
