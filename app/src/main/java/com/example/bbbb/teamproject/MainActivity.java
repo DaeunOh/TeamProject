@@ -14,6 +14,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +43,9 @@ import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -50,6 +56,8 @@ public class MainActivity extends AppCompatActivity
     private Button mapButton;
     private Button sortButton;
     private FloatingActionButton reviewButton;
+
+    private List<RecyclerItem> recyclerItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +143,30 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerItems = new ArrayList<>();
+
+        for (int i = 1; i <= 10; i++) {
+            recyclerItems.add(new RecyclerItem("아롤도그", R.drawable.alol, "참 맛나용"));
+        }
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        final RecyclerAdapter adapter = new RecyclerAdapter(recyclerItems);
+        adapter.setListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
+        adapter.notifyDataSetChanged();
+
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, linearLayoutManager.getOrientation()));
 
     }
 
@@ -370,7 +402,7 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.review_container, fr);
+        fragmentTransaction.replace(R.id.tab_content4, fr);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -439,27 +471,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public class Review {
-        private String store;
-        private String text;
-
-        public String getStore() {
-            return store;
-        }
-
-        public void setStore(String store) {
-            this.store = store;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
     }
 
 

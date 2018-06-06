@@ -3,7 +3,10 @@ package com.example.bbbb.teamproject;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +23,6 @@ public class AddreviewFragment extends Fragment {
     private EditText reviewText;
     private AutoCompleteTextView searchText ;
     private Button addbutton;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
         View layout = inflater.inflate(R.layout.fragment_review,container,false);
@@ -28,7 +30,9 @@ public class AddreviewFragment extends Fragment {
         searchText= layout.findViewById(R.id.search_text);
         addbutton= layout.findViewById(R.id.button_review);
 
+
         addbutton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
@@ -54,4 +58,5 @@ public class AddreviewFragment extends Fragment {
 
         return layout;
     }
+
 }

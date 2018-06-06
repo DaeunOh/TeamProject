@@ -57,6 +57,11 @@
         android:layout_height="match_parent"
         tools:context="com.bingnerdranch.android.drawlayout_practice.ReviewFragment">
 
+    <RelativeLayout
+        android:id="@+id/tab_content4_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.bingnerdranch.android.drawlayout_practice.ReviewFragment">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/add_review"
@@ -69,22 +74,24 @@
             android:onClick="addReiew"
             app:srcCompat="@drawable/ic_menu_send" />
 
-        <fragment
-            android:id="@+id/customlistfragment"
-            android:name="com.example.bbbb.teamproject.ReviewFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_review_content" />
-
-        <LinearLayout
-            android:id="@+id/review_container"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/review_container"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="horizontal"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
     </RelativeLayout>
 
     <android.support.constraint.ConstraintLayout
