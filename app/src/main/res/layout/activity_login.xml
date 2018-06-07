@@ -27,34 +27,34 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
 
-    <LinearLayout
-        android:id="@+id/sign_out_and_disconnect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        tools:visibility="visible">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/sign_out_and_disconnect"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="vertical"-->
+        <!--android:visibility="gone"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/imageView3"-->
+        <!--tools:visibility="visible">-->
 
-        <Button
-            android:id="@+id/sign_out_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
-            android:drawablePadding="24dp"
-            android:drawableStart="@drawable/googleg_standard_color_18"
-            android:fontFamily="@font/roboto_m"
-            android:paddingEnd="18dp"
-            android:paddingStart="18dp"
-            android:text="@string/signout"
-            android:textAllCaps="false"
-            android:textColor="@color/common_google_signin_btn_text_light" />
+        <!--<Button-->
+            <!--android:id="@+id/sign_out_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/common_google_signin_btn_icon_light_normal_background"-->
+            <!--android:drawablePadding="24dp"-->
+            <!--android:drawableStart="@drawable/googleg_standard_color_18"-->
+            <!--android:fontFamily="@font/roboto_m"-->
+            <!--android:paddingEnd="18dp"-->
+            <!--android:paddingStart="18dp"-->
+            <!--android:text="@string/signout"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textColor="@color/common_google_signin_btn_text_light" />-->
 
         <!--<Button-->
             <!--android:id="@+id/disconnect_button"-->
@@ -70,6 +70,6 @@
             <!--android:text="@string/disconnect"-->
             <!--android:textAllCaps="false"-->
             <!--android:textColor="@color/common_google_signin_btn_text_light" />-->
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </android.support.constraint.ConstraintLayout>

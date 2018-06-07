@@ -15,7 +15,7 @@
         <item
             android:id="@+id/my_login"
             android:icon="@drawable/login"
-            android:title="로그인 관리" />
+            android:title="로그아웃" />
     </group>
 
 </menu>
