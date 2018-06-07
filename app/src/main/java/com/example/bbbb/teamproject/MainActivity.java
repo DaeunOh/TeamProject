@@ -3,11 +3,9 @@ package com.example.bbbb.teamproject;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
@@ -18,7 +16,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +23,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -140,20 +136,17 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent myIntent = getIntent();
-        // when user is signed in
-        if(myIntent.getBooleanExtra("login", false)){
 
-            View nav_header_view = navigationView.getHeaderView(0);
+        View nav_header_view = navigationView.getHeaderView(0);
 
-            // User information setting
-            TextView userNameTV = nav_header_view.findViewById(R.id.userName);
-            TextView userEmailTV = nav_header_view.findViewById(R.id.userEmail);
-            ImageView userPhotoIV = nav_header_view.findViewById(R.id.userPhoto);
+        // User information setting
+        TextView userNameTV = nav_header_view.findViewById(R.id.userName);
+        TextView userEmailTV = nav_header_view.findViewById(R.id.userEmail);
+        ImageView userPhotoIV = nav_header_view.findViewById(R.id.userPhoto);
 
-            userNameTV.setText(myIntent.getStringExtra("userName"));
-            userEmailTV.setText(myIntent.getStringExtra("userEmail"));
-            userPhotoIV.setImageURI(Uri.parse(myIntent.getStringExtra("userPhotoUrl")));
-        }
+        userNameTV.setText(myIntent.getStringExtra("userName"));
+        userEmailTV.setText(myIntent.getStringExtra("userEmail"));
+        //userPhotoIV.setImageURI(Uri.parse(myIntent.getStringExtra("userPhotoUrl")));
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerItems = new ArrayList<>();
@@ -479,7 +472,7 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "리뷰관리", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.my_login) {
             Intent intent = new Intent(this, LoginActivity.class);
-            intent.putExtra("check", "checkIsNotFirstOpen");
+            intent.putExtra("signOut", true);
             startActivity(intent);
             finish();
         }
