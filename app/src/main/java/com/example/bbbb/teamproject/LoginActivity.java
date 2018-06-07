@@ -2,6 +2,7 @@ package com.example.bbbb.teamproject;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,6 +33,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private GoogleSignInClient mGoogleSignInClient;
     private ProgressDialog mProgressDialog;
+    private Intent intent;
+
+    private String name = null;
+    private String email = null;
+    private Uri photoUrl = null;
+
+    private boolean login = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +68,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
 
-        Intent myIntent = getIntent();
-        String check = myIntent.getStringExtra("check");
+        if(currentUser != null){
+            setIntent();
 
-        if (currentUser != null && check.equals("checkIsFirstOpen")) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
+            Intent myIntent = getIntent();
+            String check = myIntent.getStringExtra("check");
+
+            if(check.equals("checkIsFirstOpen")){
+                intent.putExtra("userName", name);
+                intent.putExtra("userEmail", email);
+                intent.putExtra("userPhotoUrl", photoUrl.toString());
+                intent.putExtra("login", login);
+
+                startActivity(intent);
+                finish();
+            }
         }
     }
 
@@ -79,7 +97,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-                System.out.println("this is onActivityResult!!!");
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
@@ -104,6 +121,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             FirebaseUser user = mAuth.getCurrentUser();
 
                             updateUI(user);
+
+                            setIntent();
+                            intent.putExtra("userName", name);
+                            intent.putExtra("userEmail", email);
+                            intent.putExtra("userPhotoUrl", photoUrl.toString());
+                            intent.putExtra("login", login);
 
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
@@ -138,6 +161,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        login = true;
     }
 
     private void signOut() {
@@ -149,6 +173,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         updateUI(null);
+                        login = false;
                     }
                 });
     }
@@ -165,6 +190,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //                    }
 //                });
 //    }
+
+    private void setIntent(){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        intent = new Intent(LoginActivity.this, MainActivity.class);
+
+        login = true;
+
+        for (UserInfo profile : currentUser.getProviderData()) {
+            // Name, email address, and profile photo Url
+            name = profile.getDisplayName();
+            email = profile.getEmail();
+            photoUrl = profile.getPhotoUrl();
+        }
+    }
 
     private void showProgressDialog() {
         if (mProgressDialog == null) {
