@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -39,16 +39,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String email = null;
     private Uri photoUrl = null;
 
-    private boolean login = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
-        findViewById(R.id.sign_out_button).setOnClickListener(this);
-        // findViewById(R.id.disconnect_button).setOnClickListener(this);
+        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
+
+        if (getIntent().getBooleanExtra("signOut", false)) {
+            FirebaseAuth.getInstance().signOut();
+        }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder
                 (GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -68,21 +73,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
 
-        if(currentUser != null){
+        if (currentUser != null) {
             setIntent();
+            intent.putExtra("userName", name);
+            intent.putExtra("userEmail", email);
+            intent.putExtra("userPhotoUrl", photoUrl.toString());
 
-            Intent myIntent = getIntent();
-            String check = myIntent.getStringExtra("check");
-
-            if(check.equals("checkIsFirstOpen")){
-                intent.putExtra("userName", name);
-                intent.putExtra("userEmail", email);
-                intent.putExtra("userPhotoUrl", photoUrl.toString());
-                intent.putExtra("login", login);
-
-                startActivity(intent);
-                finish();
-            }
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -118,17 +116,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-
-                            updateUI(user);
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            updateUI(currentUser);
 
                             setIntent();
                             intent.putExtra("userName", name);
                             intent.putExtra("userEmail", email);
                             intent.putExtra("userPhotoUrl", photoUrl.toString());
-                            intent.putExtra("login", login);
 
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            startActivity(intent);
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -149,54 +145,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onStop();
         if (mProgressDialog != null)
             mProgressDialog.dismiss();
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser == null){
-            Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
-            int pid = android.os.Process.myPid();
-            android.os.Process.killProcess(pid);
-        }
     }
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-        login = true;
     }
 
-    private void signOut() {
-        mAuth.signOut();
-
-        // Google sign out
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
-                        login = false;
-                    }
-                });
-    }
-
-//    private void revokeAccess() {
-//        mAuth.signOut();
-//
-//        // Google revoke access
-//        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
-//                new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        updateUI(null);
-//                    }
-//                });
-//    }
-
-    private void setIntent(){
+    private void setIntent() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         intent = new Intent(LoginActivity.this, MainActivity.class);
-
-        login = true;
 
         for (UserInfo profile : currentUser.getProviderData()) {
             // Name, email address, and profile photo Url
@@ -212,39 +171,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mProgressDialog.setMessage(getString(R.string.loading));
             mProgressDialog.setIndeterminate(true);
         }
-
         mProgressDialog.show();
     }
 
     private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+        if (mProgressDialog != null && mProgressDialog.isShowing())
             mProgressDialog.hide();
-        }
     }
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
         } else {
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
         }
         hideProgressDialog();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sign_in_button:
-                signIn();
-                break;
-            case R.id.sign_out_button:
-                signOut();
-                break;
-//            case R.id.disconnect_button:
-//                revokeAccess();
-//                break;
-        }
     }
 }
