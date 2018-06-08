@@ -453,7 +453,6 @@ public class MainActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.menu_search) {
 
-
             return true;
         }
 
