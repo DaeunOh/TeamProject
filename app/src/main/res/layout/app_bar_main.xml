@@ -38,6 +38,20 @@
 
         </android.support.design.widget.AppBarLayout>
 
+        <FrameLayout
+            android:id="@+id/search_frag_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="#FFFFFF">
+
+            <fragment
+                android:id="@+id/searchfragment"
+                android:name="com.example.bbbb.teamproject.SearchFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
         <include layout="@layout/content_main" />
 
         <TabWidget

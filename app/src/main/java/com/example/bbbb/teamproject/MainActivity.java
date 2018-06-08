@@ -4,8 +4,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
@@ -20,9 +22,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +44,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +58,7 @@ public class MainActivity extends AppCompatActivity
 
     private Button mapButton;
     private Button sortButton;
+    private FloatingActionButton reviewButton;
 
     private List<RecyclerItem> recyclerItems;
 
@@ -79,6 +89,8 @@ public class MainActivity extends AppCompatActivity
 
         // 상점 선택
         selectStore();
+
+
 
 
         host.setup();
@@ -112,7 +124,7 @@ public class MainActivity extends AppCompatActivity
 
         //이미지를 직접 그려주는 방법
 
-        rimage = findViewById(R.id.RouletteImage);
+        rimage= findViewById(R.id.RouletteImage);
 
         new Roulette(MainActivity.this, rimage, rouletteButton, getApplicationContext()).setComponents(rouletteButton);
 
@@ -134,19 +146,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        Intent myIntent = getIntent();
-
-        View nav_header_view = navigationView.getHeaderView(0);
-
-        // User information setting
-        TextView userNameTV = nav_header_view.findViewById(R.id.userName);
-        TextView userEmailTV = nav_header_view.findViewById(R.id.userEmail);
-        ImageView userPhotoIV = nav_header_view.findViewById(R.id.userPhoto);
-
-        userNameTV.setText(myIntent.getStringExtra("userName"));
-        userEmailTV.setText(myIntent.getStringExtra("userEmail"));
-        //userPhotoIV.setImageURI(Uri.parse(myIntent.getStringExtra("userPhotoUrl")));
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerItems = new ArrayList<>();
@@ -418,11 +417,24 @@ public class MainActivity extends AppCompatActivity
         inflater.inflate(R.menu.main, menu);
         android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
+        final FrameLayout searchCont = findViewById(R.id.search_frag_container);
 
         searchView.setQueryHint("상점을 입력하시오.");
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                Fragment fr = null;
+                if (hasFocus) {
+                    searchCont.setVisibility(View.VISIBLE);
+                } else {
+                    searchCont.setVisibility(View.GONE);
+                }
+            }
+        });
         searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 Toast.makeText(getApplicationContext(), "탐색완료!", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -445,16 +457,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.lang) {
-            Toast.makeText(getApplicationContext(), "Success English!", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (id == R.id.colorch) {
-            Toast.makeText(getApplicationContext(), "색변경!", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (id == R.id.menu_search) {
+        switch (item.getItemId()) {
+            case R.id.lang:
+                Toast.makeText(getApplicationContext(), "Success English!", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.colorch:
+                Toast.makeText(getApplicationContext(), "색변경!", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menu_search:
 
-
-            return true;
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -470,17 +482,34 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "내정보관리", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.my_review) {
             Toast.makeText(getApplicationContext(), "리뷰관리", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.my_login) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.putExtra("signOut", true);
-            startActivity(intent);
-            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public class Review {
+        private String store;
+        private String text;
+
+        public String getStore() {
+            return store;
+        }
+
+        public void setStore(String store) {
+            this.store = store;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+    }
+
 
 
 }
