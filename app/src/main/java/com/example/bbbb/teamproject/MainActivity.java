@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TabHost;
@@ -362,11 +363,23 @@ public class MainActivity extends AppCompatActivity
         inflater.inflate(R.menu.main, menu);
         android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
+        final FrameLayout searchCont = findViewById(R.id.search_frag_container);
 
         searchView.setQueryHint("상점을 입력하시오.");
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    searchCont.setVisibility(View.VISIBLE);
+                } else {
+                    searchCont.setVisibility(View.GONE);
+                }
+            }
+        });
         searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 Toast.makeText(getApplicationContext(), "탐색완료!", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -379,28 +392,6 @@ public class MainActivity extends AppCompatActivity
 
 
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.lang) {
-            Toast.makeText(getApplicationContext(), "Success English!", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (id == R.id.colorch) {
-            Toast.makeText(getApplicationContext(), "색변경!", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (id == R.id.menu_search) {
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

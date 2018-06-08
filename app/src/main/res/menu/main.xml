@@ -8,17 +8,4 @@
         android:title="검색"
         app:actionViewClass="android.support.v7.widget.SearchView" />
 
-    <item
-        android:id="@+id/opt_menu"
-        app:showAsAction="always"
-        android:title="option">
-
-        <item
-            android:id="@+id/lang"
-            android:title="언어설정"/>
-
-        <item
-            android:id="@+id/colorch"
-            android:title="테마색변경"/>
-    </item>
 </menu>
