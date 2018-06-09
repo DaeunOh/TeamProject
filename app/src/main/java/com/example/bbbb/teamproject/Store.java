@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,7 +42,8 @@ public class Store extends AppCompatActivity {
     TextView addressTextView;
     TextView telTextView;
     ImageView image;
-    ImageButton callButton;
+
+    Button telButton;
 
     String tel;
 
@@ -69,8 +71,8 @@ public class Store extends AppCompatActivity {
 
         nameTextView = findViewById(R.id.store_name);
         addressTextView = findViewById(R.id.store_address);
-        telTextView=findViewById(R.id.store_tel);
-        callButton=findViewById(R.id.call_button);
+        // telTextView=findViewById(R.id.store_tel);
+        telButton = findViewById(R.id.call_button);
     }
 
     @Override
@@ -108,7 +110,7 @@ public class Store extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 tel = dataSnapshot.getValue(String.class);
-                telTextView.setText(tel);
+                telButton.setText(tel);
             }
 
             @Override
@@ -122,10 +124,10 @@ public class Store extends AppCompatActivity {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.call_button:
-                intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+tel));
+                intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));
                 break;
         }
-        if (intent!=null) {
+        if (intent != null) {
             startActivity(intent);
         }
     }

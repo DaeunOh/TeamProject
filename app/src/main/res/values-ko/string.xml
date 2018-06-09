@@ -20,9 +20,9 @@
     <string name="snackbar">분식</string>
     <string name="fastfood">패스트푸드</string>
     <string name="andsoon">기타</string>
-    <string name="checksort">종류를 선택해주세요</string>
-    <string name="hintsearch">상점을 입력해 주세요.</string>
-    <string name="review">리뷰를 작성해 주세요.</string>
+    <string name="checksort">종류를 선택해주세요.</string>
+    <string name="hintsearch">상점을 입력해주세요.</string>
+    <string name="review">리뷰를 작성해주세요.</string>
     <string name="enrollment">등록</string>
     <string name="enrollmentreview">리뷰를 등록하시겠습니까?</string>
     <string name="cancel">취소</string>
