@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  */
 
@@ -23,6 +26,10 @@ public class AddreviewFragment extends Fragment {
     private EditText reviewText;
     private AutoCompleteTextView searchText ;
     private Button addbutton;
+
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = firebaseDatabase.getReference();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
         View layout = inflater.inflate(R.layout.fragment_review,container,false);
@@ -40,6 +47,8 @@ public class AddreviewFragment extends Fragment {
                         .setPositiveButton(R.string.enrollment, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                databaseReference.child("review").push().setValue(reviewText.getText().toString());
+
                                 Toast.makeText(getContext(),R.string.sucessreview, Toast.LENGTH_SHORT).show();
                                 searchText.setText("");
                                 reviewText.setText("");
