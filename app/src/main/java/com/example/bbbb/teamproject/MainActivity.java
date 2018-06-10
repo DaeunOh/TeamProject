@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity
     private List<RecyclerItem> recyclerItems;
 
     private List<String> storeList = new ArrayList<>();
+    private List<Integer> randomInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,32 +177,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void selectStore() {
-        /*
-        randomSelect 구현 필요
-        database에 index만 적혀 있는 이미지 파일 추가 (ex. 0, 1, 2, ...)
-        for문(count=0; count<6; count++)을 통해 count를 증가시키면서 총 6번의 for문 실행
-        index라는 sting 변수를 배열로 관리하면서 똑같은 index가 존재하지 않도록...
-        index string을 통해 database에 접근하고 그에 맞는 버튼과 텍스트뷰 나타나도록!
-         */
-
-        StorageReference mStorageRef;
-
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "천애부" + ".jpg");
-        Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton1);
-
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "아롤도그" + ".jpg");
-        Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton2);
-
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "맘스터치" + ".jpg");
-        Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton3);
-
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "깐돌이네" + ".jpg");
-        Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton4);
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = database.getReference();
 
-        final List<Integer> randomInt = new ArrayList<>();
+        randomInt = new ArrayList<>();
         storeList = new ArrayList<>();
 
         DatabaseReference mStoreRef = mDatabase.child("Restaurant");
@@ -216,13 +195,29 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 for(int i=0; i<4; i++){
-                    int num = (int) (Math.random()*(38));
+                    int num = (int) (Math.random()*(storeList.size()+1));
 
                     while(randomInt.contains(num)){
-                        num = (int) (Math.random()*(38));
+                        num = (int) (Math.random()*(storeList.size()+1));
                     }
                     randomInt.add(num);
                 }
+
+                // image loading
+                StorageReference mStorageRef;
+                mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + storeList.get(randomInt.get(0)) + ".jpg");
+                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton1);
+                mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + storeList.get(randomInt.get(1)) + ".jpg");
+                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton2);
+                mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + storeList.get(randomInt.get(2)) + ".jpg");
+                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton3);
+                mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + storeList.get(randomInt.get(3)) + ".jpg");
+                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton4);
+
+                textView1.setText(storeList.get(randomInt.get(0)));
+                textView2.setText(storeList.get(randomInt.get(1)));
+                textView3.setText(storeList.get(randomInt.get(2)));
+                textView4.setText(storeList.get(randomInt.get(3)));
             }
 
             @Override
@@ -230,113 +225,37 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+    }
 
+    public void onImageButtonClicked(View view) {
+        Intent intent;
 
-        DatabaseReference mTitleRef = mDatabase.child("Restaurant").child("천애부");
-        DatabaseReference mNameRef = mTitleRef.child("name");
-
-        mNameRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final String name = dataSnapshot.getValue(String.class);
-                textView1.setText(name);
-
-                imageButton1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, Store.class);
-                        intent.putExtra("title", name);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mTitleRef = mDatabase.child("Restaurant").child("아롤도그");
-        mNameRef = mTitleRef.child("name");
-
-        mNameRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final String name = dataSnapshot.getValue(String.class);
-                textView2.setText(name);
-
-                imageButton2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, Store.class);
-                        intent.putExtra("title", name);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mTitleRef = mDatabase.child("Restaurant").child("맘스터치");
-        mNameRef = mTitleRef.child("name");
-
-        mNameRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final String name = dataSnapshot.getValue(String.class);
-                textView3.setText(name);
-
-                imageButton3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, Store.class);
-                        intent.putExtra("title", name);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mTitleRef = mDatabase.child("Restaurant").child("깐돌이네");
-        mNameRef = mTitleRef.child("name");
-
-        mNameRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final String name = dataSnapshot.getValue(String.class);
-                textView4.setText(name);
-
-                imageButton4.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, Store.class);
-                        intent.putExtra("title", name);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
+        switch (view.getId()){
+            case R.id.imageButton:
+                intent = new Intent(MainActivity.this, Store.class);
+                intent.putExtra("title", storeList.get(randomInt.get(0)));
+                startActivity(intent);
+                overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
+                break;
+            case R.id.imageButton2:
+                intent = new Intent(MainActivity.this, Store.class);
+                intent.putExtra("title", storeList.get(randomInt.get(1)));
+                startActivity(intent);
+                overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
+                break;
+            case R.id.imageButton3:
+                intent = new Intent(MainActivity.this, Store.class);
+                intent.putExtra("title", storeList.get(randomInt.get(2)));
+                startActivity(intent);
+                overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
+                break;
+            case R.id.imageButton4:
+                intent = new Intent(MainActivity.this, Store.class);
+                intent.putExtra("title", storeList.get(randomInt.get(3)));
+                startActivity(intent);
+                overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
+                break;
+        }
     }
 
     public void selectFragment(View view) {
@@ -448,9 +367,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void onimageButtonClicked(View view) {
 
-    }
 }
 
 
