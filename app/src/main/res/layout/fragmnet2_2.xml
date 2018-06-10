@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,10 +20,10 @@
         android:id="@+id/type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="18dp"
-        android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="18dp"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView9">
 
@@ -32,34 +31,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/type_ko"
+            <RadioGroup
+                android:id="@+id/radio_group1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/korean"
-                tools:layout_editor_absoluteX="127dp"
-                tools:layout_editor_absoluteY="41dp" />
+                android:orientation="horizontal"
+                android:onClick="onRadioButtonClicked">
 
-            <CheckBox
-                android:id="@+id/type_ch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/chinese"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="41dp" />
+                <RadioButton
+                    android:id="@+id/type_ko"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/korean" />
 
-            <CheckBox
-                android:id="@+id/type_jp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/japanese" />
+                <RadioButton
+                    android:id="@+id/type_ch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/chinese" />
+
+                <RadioButton
+                    android:id="@+id/type_jp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/japanese" />
+            </RadioGroup>
 
         </LinearLayout>
 
@@ -67,31 +68,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="86dp">
+            android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/type_bu"
+            <RadioGroup
+                android:id="@+id/radio_group2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/snackbar" />
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/type_ff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/fastfood"
-                tools:layout_editor_absoluteX="84dp"
-                tools:layout_editor_absoluteY="369dp" />
+                <RadioButton
+                    android:id="@+id/type_bu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/snackbar" />
 
-            <CheckBox
-                android:id="@+id/aso"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/andsoon" />
+                <RadioButton
+                    android:id="@+id/type_ff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/fastfood"
+                    tools:layout_editor_absoluteX="84dp"
+                    tools:layout_editor_absoluteY="369dp" />
+
+                <RadioButton
+                    android:id="@+id/aso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/andsoon" />
+            </RadioGroup>
 
         </LinearLayout>
     </LinearLayout>
@@ -100,11 +107,12 @@
     <ListView
         android:id="@+id/store_listview"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="18dp"
+        android:layout_height="515dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/type"></ListView>
 

@@ -39,6 +39,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity
     private Button sortButton;
 
     private List<RecyclerItem> recyclerItems;
+
+    private List<String> storeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,10 +198,40 @@ public class MainActivity extends AppCompatActivity
         mStorageRef = FirebaseStorage.getInstance().getReference().child("squareRestaurantImage/" + "깐돌이네" + ".jpg");
         Glide.with(this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton4);
 
-
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = database.getReference();
+
+        final List<Integer> randomInt = new ArrayList<>();
+        storeList = new ArrayList<>();
+
+        DatabaseReference mStoreRef = mDatabase.child("Restaurant");
+
+        mStoreRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                storeList.clear();
+
+                for (DataSnapshot storeSnapshot : dataSnapshot.getChildren()) {
+                    storeList.add(String.valueOf(storeSnapshot.getKey()));
+                }
+
+                for(int i=0; i<4; i++){
+                    int num = (int) (Math.random()*(38));
+
+                    while(randomInt.contains(num)){
+                        num = (int) (Math.random()*(38));
+                    }
+                    randomInt.add(num);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         DatabaseReference mTitleRef = mDatabase.child("Restaurant").child("천애부");
         DatabaseReference mNameRef = mTitleRef.child("name");
 
@@ -302,7 +335,6 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-
 
 
     }
@@ -416,7 +448,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    public void onimageButtonClicked(View view) {
 
+    }
 }
 
 
