@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity
 
         rimage = findViewById(R.id.RouletteImage);
 
-        new Roulette(MainActivity.this, rimage, rouletteButton, getApplicationContext()).setComponents(rouletteButton);
+        new Roulette(MainActivity.this, rimage, rouletteButton).setComponents(rouletteButton);
 
 
         spec = host.newTabSpec("tab4");
@@ -328,10 +328,10 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 for(int i=0; i<4; i++){
-                    int num = (int) (Math.random()*(storeList.size()+1));
+                    int num = (int) (Math.random()*storeList.size());
 
                     while(randomInt.contains(num)){
-                        num = (int) (Math.random()*(storeList.size()+1));
+                        num = (int) (Math.random()*storeList.size());
                     }
                     randomInt.add(num);
                 }
