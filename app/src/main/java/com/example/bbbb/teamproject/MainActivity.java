@@ -77,10 +77,6 @@ public class MainActivity extends AppCompatActivity
     private List<Integer> randomInt;
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -441,7 +437,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.my_review) {
-            Toast.makeText(getApplicationContext(), "리뷰관리", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent (this, ReviewManageActivity.class);
+            intent.putExtra("username", username);
+            startActivity(intent);
+            overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
         } else if (id == R.id.my_login) {
             Intent intent = new Intent(this, LoginActivity.class);
             intent.putExtra("signOut", true);
