@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,11 +34,16 @@ public class ReviewManageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_manage);
-        RecyclerView recyclerView = findViewById(R.id.store_reviewList2);
-        recyclerItems = new ArrayList<>();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
+
+        RecyclerView recyclerView = findViewById(R.id.store_reviewList2);
+        recyclerItems = new ArrayList<>();
 
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("Review/");
@@ -47,17 +53,15 @@ public class ReviewManageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 recyclerItems.clear();
-
+                    //recyclerItems에 리뷰 데이터 넣어주기!
                     for (DataSnapshot messageData2 : dataSnapshot.child(username).getChildren()) {
-                        msg1 = messageData2.getKey().toString();
+                        msg1 = messageData2.getKey();
                         for (DataSnapshot messageData3 : dataSnapshot.child(username).child(msg1).getChildren()) {
                             msg2 = (String) messageData3.getValue();
                             recyclerItems.add(new RecyclerItem(username, msg1, msg2));
                         }
-
                     }
                 }
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -65,11 +69,8 @@ public class ReviewManageActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-        final RecyclerAdapter adapter = new RecyclerAdapter(getApplicationContext(), recyclerItems);
-        adapter.setListener(new OnItemClickListener() {
+        final RecyclerAdapter reviewAdapter = new RecyclerAdapter(getApplicationContext(), recyclerItems);
+        reviewAdapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(getApplicationContext(), Store.class);
@@ -78,13 +79,15 @@ public class ReviewManageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        adapter.notifyDataSetChanged();
+        reviewAdapter.notifyDataSetChanged();
 
-        recyclerView.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setAdapter(reviewAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), linearLayoutManager.getOrientation()));
 
-    }
+        }
 
 }
