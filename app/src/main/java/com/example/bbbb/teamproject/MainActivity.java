@@ -439,7 +439,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.my_review) {
-            Intent intent = new Intent (this, ReviewManageActivity.class);
+            Intent intent = new Intent (MainActivity.this, ReviewManageActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);
             overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
