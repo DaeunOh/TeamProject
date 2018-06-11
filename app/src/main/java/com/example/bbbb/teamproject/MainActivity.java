@@ -55,14 +55,11 @@ public class MainActivity extends AppCompatActivity
 
     FirebaseDatabase database;
     DatabaseReference mDatabase;
-    private ChildEventListener mChild;
 
     //searchview검색구현
     private ListView listView;
     private ArrayList<String> mMeetings = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
-
-
 
     private ImageButton imageButton1, imageButton2, imageButton3, imageButton4;
     private ImageView rimage;
@@ -70,17 +67,14 @@ public class MainActivity extends AppCompatActivity
 
     private Button mapButton;
     private Button sortButton;
-    public String  name, Name;
-    private String username;
+    public String  name;
+    private String username, reviewname;
     String title,msg1,msg2;
-    ImageView image;
 
     private List<RecyclerItem> recyclerItems;
 
     private List<String> storeList = new ArrayList<>();
     private List<Integer> randomInt;
-
-    StorageReference mStorageRef;
 
 
 
@@ -178,10 +172,11 @@ public class MainActivity extends AppCompatActivity
         TextView userEmailTV = nav_header_view.findViewById(R.id.userEmail);
         ImageView userPhotoIV = nav_header_view.findViewById(R.id.userPhoto);
 
-        username=myIntent.getStringExtra("userName");
-        userNameTV.setText(username);
+        userNameTV.setText(myIntent.getStringExtra("userName"));
         userEmailTV.setText(myIntent.getStringExtra("userEmail"));
+        username= (String) userNameTV.getText();
         //userPhotoIV.setImageURI(Uri.parse(myIntent.getStringExtra("userPhotoUrl")));
+
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerItems = new ArrayList<>();
@@ -199,13 +194,13 @@ public class MainActivity extends AppCompatActivity
                 recyclerItems.clear();
 
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
-                    username = messageData.getKey().toString();
+                    reviewname = messageData.getKey().toString();
 
-                    for (DataSnapshot messageData2 : dataSnapshot.child(username).getChildren()) {
+                    for (DataSnapshot messageData2 : dataSnapshot.child(reviewname).getChildren()) {
                         msg1 = messageData2.getKey().toString();
-                        for (DataSnapshot messageData3 : dataSnapshot.child(username).child(msg1).getChildren()) {
+                        for (DataSnapshot messageData3 : dataSnapshot.child(reviewname).child(msg1).getChildren()) {
                             msg2 = (String) messageData3.getValue();
-                            recyclerItems.add(new RecyclerItem(username, msg1, msg2));
+                            recyclerItems.add(new RecyclerItem(reviewname, msg1, msg2));
                         }
 
                     }

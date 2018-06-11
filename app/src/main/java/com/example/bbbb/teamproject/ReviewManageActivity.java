@@ -7,9 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import java.util.List;
+
 public class ReviewManageActivity extends AppCompatActivity {
 
-    private String name = null;
+    String title,msg1,msg2;
+    private List<RecyclerItem> recyclerItems;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
