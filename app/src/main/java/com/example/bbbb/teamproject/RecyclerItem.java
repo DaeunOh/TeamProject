@@ -10,7 +10,7 @@ public class RecyclerItem {
     private int imageUrl;
     private String review_content;
 
-    public RecyclerItem(String store_name, int imageUrl, String review_content) {
+    public RecyclerItem(String store_name, String review_content) {
         this.store_name = store_name;
         this.imageUrl = imageUrl;
         this.review_content = review_content;

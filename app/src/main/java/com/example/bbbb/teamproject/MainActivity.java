@@ -3,6 +3,7 @@ package com.example.bbbb.teamproject;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,16 +41,18 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AddreviewFragment.OnApplySelectedListener{
 
     FirebaseDatabase database;
     DatabaseReference mDatabase;
     private ChildEventListener mChild;
+
 
 
 
@@ -59,12 +62,24 @@ public class MainActivity extends AppCompatActivity
 
     private Button mapButton;
     private Button sortButton;
-    public String  name;
+    public String  name, Name;
+    String title,msg1,msg2;
+    ImageView image;
 
     private List<RecyclerItem> recyclerItems;
 
     private List<String> storeList = new ArrayList<>();
     private List<Integer> randomInt;
+
+    StorageReference mStorageRef;
+
+    @Override
+    public void onCatagoryApplySelected(String name){
+        Name = name;
+    }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +102,8 @@ public class MainActivity extends AppCompatActivity
         textView2 = findViewById(R.id.textView2);
         textView3 = findViewById(R.id.textView3);
         textView4 = findViewById(R.id.textView4);
+
+
 
         // 상점 선택
         selectStore();
@@ -162,9 +179,11 @@ public class MainActivity extends AppCompatActivity
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerItems = new ArrayList<>();
 
+        Intent intent = getIntent();
+        title = intent.getStringExtra("title");
 
         database = FirebaseDatabase.getInstance();
-        mDatabase = database.getReference("Review/꼬꼬아찌review");
+        mDatabase = database.getReference("Review/");
 
 
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -173,12 +192,22 @@ public class MainActivity extends AppCompatActivity
                 recyclerItems.clear();
 
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
-                    String msg2=messageData.getValue().toString();
-                    recyclerItems.add(new RecyclerItem(name, R.drawable.alol, msg2));
+                    msg1 = messageData.getKey().toString();
 
+//                    image = findViewById(R.id.review_image);
+//                    mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + msg1 + ".jpg");
+//                    Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(mStorageRef).into(image);
+
+                    for (DataSnapshot messageData2 : dataSnapshot.child(msg1).getChildren()) {
+                        msg2 = (String) messageData2.getValue();
+                        recyclerItems.add(new RecyclerItem(msg1, msg2));
+
+
+                    }
+
+                    }
                 }
 
-            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -240,6 +269,8 @@ public class MainActivity extends AppCompatActivity
         };
         mDatabase.addChildEventListener(mChild);
     }
+
+
 
     @Override
     protected void onDestroy() {
@@ -438,6 +469,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
 }

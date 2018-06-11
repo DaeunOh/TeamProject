@@ -31,7 +31,7 @@ import java.util.List;
  * Created by bbbb_ on 2018-05-23.
  */
 
-public class Store extends AppCompatActivity {
+public class Store extends AppCompatActivity implements AddreviewFragment.OnApplySelectedListener{
 
     FirebaseDatabase database;
     DatabaseReference mDatabase;
@@ -52,8 +52,9 @@ public class Store extends AppCompatActivity {
     ImageView image;
 
     Button telButton;
+    String title;
 
-    String tel;
+    String tel,Name;
 
     ListView reviewList;
 
@@ -62,12 +63,17 @@ public class Store extends AppCompatActivity {
     private List<String> ReviewList = new ArrayList<>();
 
     @Override
+    public void onCatagoryApplySelected(String name){
+        Name = name;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
 
         Intent intent = getIntent();
-        String title = intent.getStringExtra("title");
+        title = intent.getStringExtra("title");
 
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
@@ -101,12 +107,11 @@ public class Store extends AppCompatActivity {
 
 
 
-        mReviewRef = database.getReference("Review/꼬꼬아찌review");
+        mReviewRef = database.getReference("Review/"+ title +"review");
 
         mReviewRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-//                String name = dataSnapshot.getValue(String.class);
                 ReviewList.clear();
 
 
@@ -116,14 +121,6 @@ public class Store extends AppCompatActivity {
                         ReviewList.add(a);
                 }
 
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                recyclerItems.clear();
-//
-//                for (DataSnapshot messageData : dataSnapshot.getChildren()) {
-//                    String msg2=messageData.getValue().toString();
-//                    recyclerItems.add(new RecyclerItem(name, R.drawable.alol, msg2));
-//
-//                }
 
                 adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ReviewList);
                 reviewList.setAdapter(adapter);
