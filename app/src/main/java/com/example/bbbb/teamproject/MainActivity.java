@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -206,13 +207,13 @@ public class MainActivity extends AppCompatActivity
                 // image loading
                 StorageReference mStorageRef;
                 mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + storeList.get(randomInt.get(0)) + ".jpg");
-                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton1);
+                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageButton1);
                 mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + storeList.get(randomInt.get(1)) + ".jpg");
-                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton2);
+                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageButton2);
                 mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + storeList.get(randomInt.get(2)) + ".jpg");
-                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton3);
+                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageButton3);
                 mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + storeList.get(randomInt.get(3)) + ".jpg");
-                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).into(imageButton4);
+                Glide.with(MainActivity.this).using(new FirebaseImageLoader()).load(mStorageRef).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageButton4);
 
                 textView1.setText(storeList.get(randomInt.get(0)));
                 textView2.setText(storeList.get(randomInt.get(1)));
