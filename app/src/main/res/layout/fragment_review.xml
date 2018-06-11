@@ -36,6 +36,7 @@
             android:layout_weight="1"
             android:hint="@string/hintsearch"
             android:textColor="#999999"
+            android:completionThreshold="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

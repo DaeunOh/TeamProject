@@ -9,16 +9,27 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.R.layout.simple_dropdown_item_1line;
 
 /**
  */
@@ -36,14 +47,21 @@ public class AddreviewFragment extends Fragment {
     FirebaseDatabase database;
     DatabaseReference mDatabase;
 
+    private List<String> list;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_review, container, false);
         reviewText = layout.findViewById(R.id.review_text);
-        searchText = layout.findViewById(R.id.search_text);
+        searchText = (AutoCompleteTextView) layout.findViewById(R.id.search_text);
         addbutton = layout.findViewById(R.id.button_review);
 
+        list = new ArrayList<String>();
+        settingList();
+
+        searchText.setAdapter(new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_dropdown_item_1line,  list ));
 
         addbutton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -62,7 +80,7 @@ public class AddreviewFragment extends Fragment {
                                 msg = reviewText.getText().toString();
                                 name = searchText.getText().toString();
 
-                                ((OnApplySelectedListener)activity).onCatagoryApplySelected(name);
+
                                 Toast.makeText(getContext(), name, Toast.LENGTH_SHORT).show();
                                 mDatabase.child("Review/" + name ).push().setValue(msg);
                                 mDatabase.child("AllReview/").push().setValue(msg);
@@ -84,19 +102,24 @@ public class AddreviewFragment extends Fragment {
         return layout;
     }
 
+    private void settingList() {
+        FirebaseDatabase.getInstance().getReference().child("Restaurant").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
+                    String sname = childSnapShot.getKey();
+                    list.add(sname);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-    public interface OnApplySelectedListener {
-
-         void onCatagoryApplySelected(String name);
-
-    }
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if(context instanceof Activity ) {
-            this.activity = (Activity) context;
+            }
+        });
         }
-    }
+
+
+
 
 
 

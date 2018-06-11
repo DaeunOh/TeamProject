@@ -31,7 +31,7 @@ import java.util.List;
  * Created by bbbb_ on 2018-05-23.
  */
 
-public class Store extends AppCompatActivity implements AddreviewFragment.OnApplySelectedListener{
+public class Store extends AppCompatActivity{
 
     FirebaseDatabase database;
     DatabaseReference mDatabase;
@@ -62,10 +62,7 @@ public class Store extends AppCompatActivity implements AddreviewFragment.OnAppl
 
     private List<String> ReviewList = new ArrayList<>();
 
-    @Override
-    public void onCatagoryApplySelected(String name){
-        Name = name;
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
