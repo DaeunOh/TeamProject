@@ -107,7 +107,7 @@ public class Store extends AppCompatActivity implements AddreviewFragment.OnAppl
 
 
 
-        mReviewRef = database.getReference("Review/"+ title +"review");
+        mReviewRef = database.getReference("Review/"+ title);
 
         mReviewRef.addValueEventListener(new ValueEventListener() {
             @Override

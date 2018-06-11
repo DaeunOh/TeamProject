@@ -230,7 +230,10 @@ public class MainActivity extends AppCompatActivity
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-
+                Intent intent = new Intent(MainActivity.this, Store.class);
+                String store = recyclerItems.get(position).getName();
+                intent.putExtra("title", store);
+                startActivity(intent);
             }
         });
         adapter.notifyDataSetChanged();
@@ -460,7 +463,6 @@ public class MainActivity extends AppCompatActivity
         searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 Toast.makeText(getApplicationContext(), "탐색완료!", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -470,6 +472,7 @@ public class MainActivity extends AppCompatActivity
                 MainActivity.this.arrayAdapter.getFilter().filter(newText);
                 return false;
             }
+
         });
 
 
