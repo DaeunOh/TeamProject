@@ -16,19 +16,21 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     private List<RecyclerItem> list;
     private OnItemClickListener listener;
+    private Context context;
 
     public void setListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
-    public RecyclerAdapter(List<RecyclerItem> items){
+    public RecyclerAdapter(Context context, List<RecyclerItem> items){
         list=items;
+        this.context = context;
     }
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_review_content, parent, false);
-        return new RecyclerViewHolder(view);
+        return new RecyclerViewHolder(context, view);
     }
 
     @Override

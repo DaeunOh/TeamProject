@@ -12,7 +12,6 @@ public class RecyclerItem {
 
     public RecyclerItem(String store_name, String review_content) {
         this.store_name = store_name;
-        this.imageUrl = imageUrl;
         this.review_content = review_content;
     }
 
@@ -22,14 +21,6 @@ public class RecyclerItem {
 
     public void setName(String store_name) {
         this.store_name = store_name;
-    }
-
-    public int getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(int imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public String getReview_content() {

@@ -202,14 +202,9 @@ public class MainActivity extends AppCompatActivity
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                     msg1 = messageData.getKey().toString();
 
-//                    image = findViewById(R.id.review_image);
-//                    mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + msg1 + ".jpg");
-//                    Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(mStorageRef).into(image);
-
                     for (DataSnapshot messageData2 : dataSnapshot.child(msg1).getChildren()) {
                         msg2 = (String) messageData2.getValue();
                         recyclerItems.add(new RecyclerItem(msg1, msg2));
-
 
                     }
 
@@ -226,7 +221,7 @@ public class MainActivity extends AppCompatActivity
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        final RecyclerAdapter adapter = new RecyclerAdapter(recyclerItems);
+        final RecyclerAdapter adapter = new RecyclerAdapter(MainActivity.this, recyclerItems);
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
