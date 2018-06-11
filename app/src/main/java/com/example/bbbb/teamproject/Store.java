@@ -135,7 +135,7 @@ public class Store extends AppCompatActivity {
 
                             for(DataSnapshot reviewSnapShot : dataSnapshot.child(userName).child(storeName).getChildren()) {
                                 review = String.valueOf(reviewSnapShot.getValue());
-                                adapter.addItem(review);
+                                adapter.addItem(review, userName);
                                 ReviewList.add(review);
                             }
                             break;

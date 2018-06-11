@@ -3,6 +3,7 @@ package com.example.bbbb.teamproject;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
@@ -90,12 +91,15 @@ public class AddreviewFragment extends Fragment {
                                     mDatabase = database.getReference();
 
                                     mDatabase.child("Review/" + user_name ).child( name ).push().setValue(msg);
-                                    mDatabase.child("AllReview/").push().setValue(msg);
 
                                     reviewText.setText("");
                                     searchText.setText("");
 
                                     Toast.makeText(getContext(), R.string.sucessreview, Toast.LENGTH_SHORT).show();
+
+                                    FragmentManager fragmentManager = getActivity().getFragmentManager();
+                                    fragmentManager.beginTransaction().remove(AddreviewFragment.this).commit();
+                                    fragmentManager.popBackStack();
                                 }
                             }
                         })

@@ -220,7 +220,7 @@ public class Fragment2_1 extends Fragment implements OnMapReadyCallback {
         googleMap.addMarker(new MarkerOptions().position(index46).title("KFC").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
         googleMap.addMarker(new MarkerOptions().position(index47).title("낭만 핫도그").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
         googleMap.addMarker(new MarkerOptions().position(index48).title("아오센").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-        googleMap.addMarker(new MarkerOptions().position(index49).title("파스타&그릴").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+        googleMap.addMarker(new MarkerOptions().position(index49).title("파스타앤그릴").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
         googleMap.addMarker(new MarkerOptions().position(index50).title("한솥").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         googleMap.addMarker(new MarkerOptions().position(index51).title("홍콩반점").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         googleMap.addMarker(new MarkerOptions().position(index52).title("더진국").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));

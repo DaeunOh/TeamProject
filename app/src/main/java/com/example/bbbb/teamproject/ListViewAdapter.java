@@ -44,12 +44,14 @@ public class ListViewAdapter extends BaseAdapter {
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
         TextView descTextView = (TextView) convertView.findViewById(R.id.reviewlist_text) ;
+        TextView userNameTextView = (TextView) convertView.findViewById(R.id.reviewlist_name);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListViewItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         descTextView.setText(listViewItem.getReview());
+        userNameTextView.setText(listViewItem.getReviewUserName());
 
         return convertView;
     }
@@ -67,10 +69,11 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String desc) {
+    public void addItem(String desc, String userName) {
         ListViewItem item = new ListViewItem();
 
         item.setReview(desc);
+        item.setReviewUserName(userName);
 
         listViewItemList.add(item);
     }
