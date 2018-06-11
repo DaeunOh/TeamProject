@@ -143,6 +143,29 @@ public class Fragment2_1 extends Fragment implements OnMapReadyCallback {
         LatLng index38 = new LatLng(37.278415, 127.044246);
         LatLng index39 = new LatLng(37.276620, 127.044916);
 
+        LatLng index40 = new LatLng(37.278708, 127.042929);
+        LatLng index41 = new LatLng(37.278456, 127.043225);
+        LatLng index42 = new LatLng(37.278272, 127.042574);
+        LatLng index43 = new LatLng(37.278433, 127.042551);
+        LatLng index44 = new LatLng(37.278052, 127.042399);
+        LatLng index45 = new LatLng(37.278034, 127.042454);
+        LatLng index46 = new LatLng(37.278174, 127.043521);
+        LatLng index47 = new LatLng(37.278251, 127.043595);
+        LatLng index48 = new LatLng(37.278456, 127.043691);
+        LatLng index49 = new LatLng(37.278512, 127.043529);
+        LatLng index50 = new LatLng(37.278593, 127.043483);
+        LatLng index51 = new LatLng(37.276620, 127.044916);
+        LatLng index52 = new LatLng(37.278550, 127.043553);
+        LatLng index53 = new LatLng(37.278747, 127.043556);
+        LatLng index54 = new LatLng(37.277095, 127.043118);
+        LatLng index55 = new LatLng(37.277120, 127.043658);
+        LatLng index56 = new LatLng(37.274540, 127.043576);
+
+
+
+
+
+
 
 
 
@@ -187,6 +210,28 @@ public class Fragment2_1 extends Fragment implements OnMapReadyCallback {
         googleMap.addMarker(new MarkerOptions().position(index37).title("피자스쿨").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
         googleMap.addMarker(new MarkerOptions().position(index38).title("한방전주콩나물국밥").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         googleMap.addMarker(new MarkerOptions().position(index39).title("할머니부대찌개").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+
+        googleMap.addMarker(new MarkerOptions().position(index40).title("제일찌개백반").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        googleMap.addMarker(new MarkerOptions().position(index41).title("의정부 부대찌개").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        googleMap.addMarker(new MarkerOptions().position(index42).title("우만동족발집").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        googleMap.addMarker(new MarkerOptions().position(index43).title("만고쿠").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+        googleMap.addMarker(new MarkerOptions().position(index44).title("맛이짱").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        googleMap.addMarker(new MarkerOptions().position(index45).title("푸드테라피").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        googleMap.addMarker(new MarkerOptions().position(index46).title("KFC").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+        googleMap.addMarker(new MarkerOptions().position(index47).title("낭만 핫도그").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+        googleMap.addMarker(new MarkerOptions().position(index48).title("아오센").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+        googleMap.addMarker(new MarkerOptions().position(index49).title("파스타&그릴").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+        googleMap.addMarker(new MarkerOptions().position(index50).title("한솥").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        googleMap.addMarker(new MarkerOptions().position(index51).title("홍콩반점").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        googleMap.addMarker(new MarkerOptions().position(index52).title("더진국").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        googleMap.addMarker(new MarkerOptions().position(index53).title("구뜰보쌈").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        googleMap.addMarker(new MarkerOptions().position(index54).title("서울곱창").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        googleMap.addMarker(new MarkerOptions().position(index55).title("도쿄라면").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+        googleMap.addMarker(new MarkerOptions().position(index56).title("미스터피자").alpha(0.5f).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+
+
+
+
 
 
 
