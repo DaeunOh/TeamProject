@@ -7,4 +7,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.bbbb.teamproject.ReviewManageActivity">
 
+
+
 </android.support.constraint.ConstraintLayout>

@@ -260,44 +260,6 @@ public class MainActivity extends AppCompatActivity
         listView.setOnItemClickListener( new ListViewItemClickListener() );
     }
 
-//    private void initDatabase() {
-//
-//        database = FirebaseDatabase.getInstance();
-//
-//        mDatabase = database.getReference();
-//        mDatabase.child("log").setValue("check");
-//
-//        mChild = new ChildEventListener() {
-//
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        };
-//        mDatabase.addChildEventListener(mChild);
-//    }
-
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

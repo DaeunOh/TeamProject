@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
             intent.putExtra("userPhotoUrl", photoUrl.toString());
 
             startActivity(intent);
+
             finish();
         }
     }
@@ -162,6 +163,7 @@ public class LoginActivity extends AppCompatActivity {
             email = profile.getEmail();
             photoUrl = profile.getPhotoUrl();
         }
+
     }
 
     private void showProgressDialog() {
