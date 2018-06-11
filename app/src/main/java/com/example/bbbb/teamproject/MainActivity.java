@@ -20,10 +20,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +46,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,6 +55,10 @@ public class MainActivity extends AppCompatActivity
     DatabaseReference mDatabase;
     private ChildEventListener mChild;
 
+    //searchview검색구현
+    private ListView listView;
+    private ArrayList<String> mMeetings = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapter;
 
 
     private ImageButton imageButton1, imageButton2, imageButton3, imageButton4;
@@ -203,6 +211,25 @@ public class MainActivity extends AppCompatActivity
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this, linearLayoutManager.getOrientation()));
 
+        //searchview 검색구현
+        listView = findViewById(R.id.search_list);
+        arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, mMeetings);
+        listView.setAdapter(arrayAdapter);
+        FirebaseDatabase.getInstance().getReference().child("Restaurant").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
+                    String sname = childSnapShot.getKey();
+                    mMeetings.add(sname);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        listView.setOnItemClickListener( new ListViewItemClickListener() );
     }
 
     private void initDatabase() {
@@ -409,6 +436,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                MainActivity.this.arrayAdapter.getFilter().filter(newText);
                 return false;
             }
         });
@@ -423,9 +451,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.my_info) {
-            Toast.makeText(getApplicationContext(), "내정보관리", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.my_review) {
+        if (id == R.id.my_review) {
             Toast.makeText(getApplicationContext(), "리뷰관리", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.my_login) {
             Intent intent = new Intent(this, LoginActivity.class);
@@ -437,6 +463,19 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    //searchview검색 구현
+    private class ListViewItemClickListener implements AdapterView.OnItemClickListener
+    {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        {
+            Intent intent = new Intent(MainActivity.this, Store.class);
+            intent.putExtra("title", mMeetings.get(position));
+            startActivity(intent);
+
+        }
     }
 
 
