@@ -29,7 +29,8 @@
     <string name="sucessreview">리뷰가 성공적으로 등록되었습니다.</string>
     <string name="canlebutton">취소 버튼을 눌렀습니다.</string>
 
-
+    <string name="viewingReview">"리뷰 보기"</string>
+    <string name="noReview">"등록된 리뷰가 없습니다."</string>
 
 
 

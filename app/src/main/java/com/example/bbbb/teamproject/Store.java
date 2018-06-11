@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,7 +33,7 @@ import java.util.List;
  * Created by bbbb_ on 2018-05-23.
  */
 
-public class Store extends AppCompatActivity{
+public class Store extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference mDatabase;
@@ -54,14 +56,18 @@ public class Store extends AppCompatActivity{
     Button telButton;
     String title;
 
-    String tel,Name;
+    String tel, Name;
 
-    ListView reviewList;
+    private String userName, storeName, review;
+    private ListView reviewList;
+    private ImageView noReviewImageView;
+    private TextView noReviewTextView;
 
-    ArrayAdapter adapter;
+    private ListViewAdapter adapter;
+
+    private List<ListViewItem> listViewItems;
 
     private List<String> ReviewList = new ArrayList<>();
-
 
 
     @Override
@@ -92,7 +98,15 @@ public class Store extends AppCompatActivity{
         // telTextView=findViewById(R.id.store_tel);
         telButton = findViewById(R.id.call_button);
 
-        reviewList=findViewById(R.id.store_reviewList);
+        reviewList = findViewById(R.id.store_reviewList);
+        noReviewImageView = findViewById(R.id.noReviewImageView);
+        noReviewTextView = findViewById(R.id.noReviewTextView);
+
+//        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//        View mHeaderView = layoutInflater.inflate(R.layout.fragment_review_content, reviewList, false);
+//        reviewList.addHeaderView(mHeaderView);
+
+
     }
 
     @Override
@@ -103,25 +117,37 @@ public class Store extends AppCompatActivity{
         mDatabase = database.getReference();
 
 
-
-        mReviewRef = database.getReference("Review/"+ title);
+        mReviewRef = database.getReference("Review/");
 
         mReviewRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ReviewList.clear();
-
-
-
-                for (DataSnapshot storeSnapshot : dataSnapshot.getChildren()) {
-                    String a= storeSnapshot.getValue().toString();
-                        ReviewList.add(a);
-                }
-
-
-                adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ReviewList);
+                adapter = new ListViewAdapter();
                 reviewList.setAdapter(adapter);
 
+                for (DataSnapshot userNameDataSnapshot : dataSnapshot.getChildren()) {
+                    userName = String.valueOf(userNameDataSnapshot.getKey());
+
+                    for (DataSnapshot storeSnapShot : dataSnapshot.child(userName).getChildren()) {
+                        if(String.valueOf(storeSnapShot.getKey()).equals(title)){
+                            storeName = String.valueOf(storeSnapShot.getKey());
+
+                            for(DataSnapshot reviewSnapShot : dataSnapshot.child(userName).child(storeName).getChildren()) {
+                                review = String.valueOf(reviewSnapShot.getValue());
+                                adapter.addItem(review);
+                                ReviewList.add(review);
+                            }
+                            break;
+                        }
+                    }
+                }
+
+                if(ReviewList.size()!=0){
+                    reviewList.setVisibility(View.VISIBLE);
+                    noReviewImageView.setVisibility(View.INVISIBLE);
+                    noReviewTextView.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -142,7 +168,6 @@ public class Store extends AppCompatActivity{
 
             }
         });
-
 
 
         mAddressRef.addValueEventListener(new ValueEventListener() {
