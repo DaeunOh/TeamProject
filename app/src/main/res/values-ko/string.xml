@@ -27,6 +27,7 @@
     <string name="enrollmentreview">리뷰를 등록하시겠습니까?</string>
     <string name="cancel">취소</string>
     <string name="sucessreview">리뷰가 성공적으로 등록되었습니다.</string>
+    <string name="failedReview">모든 빈칸을 채워주세요.</string>
     <string name="canlebutton">취소 버튼을 눌렀습니다.</string>
 
     <string name="viewingReview">"리뷰 보기"</string>

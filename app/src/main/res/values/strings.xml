@@ -25,6 +25,7 @@
     <string name="enrollmentreview">Do you want to register reviews?</string>
     <string name="cancel">cancel</string>
     <string name="sucessreview">Your review was successfully registered.</string>
+    <string name="failedReview">You should fill every blank.</string>
     <string name="canlebutton">Cancel button pressed.</string>
 
     <string name="viewingReview">"Review"</string>

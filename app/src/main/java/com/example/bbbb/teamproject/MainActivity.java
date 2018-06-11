@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -138,8 +139,9 @@ public class MainActivity extends AppCompatActivity
 
         rimage = findViewById(R.id.RouletteImage);
 
-        new Roulette(MainActivity.this, rimage, rouletteButton).setComponents(rouletteButton);
-
+        Roulette roulette = new Roulette(MainActivity.this, rimage, rouletteButton);
+        roulette.setComponents(rouletteButton);
+        roulette.setViewGroup((ViewGroup) findViewById(R.id.popup));
 
         spec = host.newTabSpec("tab4");
         spec.setContent(R.id.tab_content4);

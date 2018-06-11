@@ -32,16 +32,11 @@ import java.util.List;
 
 import static android.R.layout.simple_dropdown_item_1line;
 
-/**
- */
-
-
-
 public class AddreviewFragment extends Fragment {
 
     private EditText reviewText;
     private AutoCompleteTextView searchText;
-    private Button addbutton;
+    private Button addButton, okButton;
     public String msg, name, user_name;
     private Activity activity;
 
@@ -66,7 +61,7 @@ public class AddreviewFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_review, container, false);
         reviewText = layout.findViewById(R.id.review_text);
         searchText = (AutoCompleteTextView) layout.findViewById(R.id.search_text);
-        addbutton = layout.findViewById(R.id.button_review);
+        addButton = layout.findViewById(R.id.button_review);
         destroy=false;
 
         list = new ArrayList<String>();
@@ -75,33 +70,33 @@ public class AddreviewFragment extends Fragment {
         searchText.setAdapter(new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_dropdown_item_1line,  list ));
 
-        addbutton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-                dialog.setTitle(R.string.enrollmentreview)
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setTitle(R.string.enrollmentreview)
                         .setPositiveButton(R.string.enrollment, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getContext(), R.string.sucessreview, Toast.LENGTH_SHORT).show();
-
-                                database = FirebaseDatabase.getInstance();
-                                mDatabase = database.getReference();
-
                                 msg = reviewText.getText().toString();
                                 name = searchText.getText().toString();
 
-//                                ((OnApplySelectedListener)activity).onCatagoryApplySelected(name);
-//                                Toast.makeText(getContext(), name, Toast.LENGTH_SHORT).show();
-                                mDatabase.child("Review/" + user_name ).child( name ).push().setValue(msg);
-//                                mDatabase.child("Review/" + name ).push().setValue(msg);
-                                mDatabase.child("AllReview/").push().setValue(msg);
+                                if(msg.getBytes().length <=0 || name.getBytes().length <=0){
+                                    Toast.makeText(getContext(), R.string.failedReview, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    database = FirebaseDatabase.getInstance();
+                                    mDatabase = database.getReference();
 
+                                    mDatabase.child("Review/" + user_name ).child( name ).push().setValue(msg);
+                                    mDatabase.child("AllReview/").push().setValue(msg);
 
-                                reviewText.setText("");
-                                searchText.setText("");
+                                    reviewText.setText("");
+                                    searchText.setText("");
 
+                                    Toast.makeText(getContext(), R.string.sucessreview, Toast.LENGTH_SHORT).show();
+                                }
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -110,8 +105,8 @@ public class AddreviewFragment extends Fragment {
                                 Toast.makeText(getContext(), R.string.canlebutton, Toast.LENGTH_SHORT).show();
                             }
                         });
-                dialog.create();
-                dialog.show();
+                AlertDialog dialog0 = builder.create();
+                dialog0.show();
             }
         });
 
