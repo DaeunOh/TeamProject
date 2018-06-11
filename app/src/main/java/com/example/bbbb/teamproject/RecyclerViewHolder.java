@@ -20,6 +20,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     private TextView store_name;
     private ImageView image;
     private TextView review_content;
+    private TextView user_name;
 
     private Context context;
 
@@ -29,6 +30,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         store_name=itemView.findViewById(R.id.reviewlist_store);
         image=itemView.findViewById(R.id.review_image);
         review_content=itemView.findViewById(R.id.reviewlist_text);
+        user_name=itemView.findViewById(R.id.review_username);
         // 뷰와 인스턴스 연결
     }
 
@@ -36,9 +38,8 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         store_name.setText(recyclerItem.getName());
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + recyclerItem.getName() + ".jpg");
         Glide.with(context).using(new FirebaseImageLoader()).load(mStorageRef).diskCacheStrategy(DiskCacheStrategy.ALL).into(image);
-
+        user_name.setText(recyclerItem.getUser_name());
         review_content.setText(recyclerItem.getReview_content());
-
         // 뷰와 데이터 바인딩
     }
 }

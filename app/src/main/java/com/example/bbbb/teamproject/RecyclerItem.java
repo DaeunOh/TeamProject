@@ -9,10 +9,20 @@ public class RecyclerItem {
     private String store_name;
     private int imageUrl;
     private String review_content;
+    private String user_name;
 
-    public RecyclerItem(String store_name, String review_content) {
+    public RecyclerItem(String username, String store_name, String review_content) {
+        this.user_name = username;
         this.store_name = store_name;
         this.review_content = review_content;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String name) {
+        this.user_name=name;
     }
 
     public String getName() {

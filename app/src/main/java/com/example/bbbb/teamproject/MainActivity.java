@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity
     private Button mapButton;
     private Button sortButton;
     public String  name, Name;
+    private String username;
     String title,msg1,msg2;
     ImageView image;
 
@@ -177,7 +178,8 @@ public class MainActivity extends AppCompatActivity
         TextView userEmailTV = nav_header_view.findViewById(R.id.userEmail);
         ImageView userPhotoIV = nav_header_view.findViewById(R.id.userPhoto);
 
-        userNameTV.setText(myIntent.getStringExtra("userName"));
+        username=myIntent.getStringExtra("userName");
+        userNameTV.setText(username);
         userEmailTV.setText(myIntent.getStringExtra("userEmail"));
         //userPhotoIV.setImageURI(Uri.parse(myIntent.getStringExtra("userPhotoUrl")));
 
@@ -190,23 +192,25 @@ public class MainActivity extends AppCompatActivity
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("Review/");
 
-
+        //db읽어서 아이템 만들어 List에 추가하기
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 recyclerItems.clear();
 
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
-                    msg1 = messageData.getKey().toString();
+                    username = messageData.getKey().toString();
 
-                    for (DataSnapshot messageData2 : dataSnapshot.child(msg1).getChildren()) {
-                        msg2 = (String) messageData2.getValue();
-                        recyclerItems.add(new RecyclerItem(msg1, msg2));
-
-                    }
+                    for (DataSnapshot messageData2 : dataSnapshot.child(username).getChildren()) {
+                        msg1 = messageData2.getKey().toString();
+                        for (DataSnapshot messageData3 : dataSnapshot.child(username).child(msg1).getChildren()) {
+                            msg2 = (String) messageData3.getValue();
+                            recyclerItems.add(new RecyclerItem(username, msg1, msg2));
+                        }
 
                     }
                 }
+            }
 
 
             @Override
@@ -243,8 +247,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-                    String sname = childSnapShot.getKey();
-                    mMeetings.add(sname);
+                        String sname = childSnapShot.getKey();
+                        mMeetings.add(sname);
                 }
             }
             @Override
@@ -256,48 +260,47 @@ public class MainActivity extends AppCompatActivity
         listView.setOnItemClickListener( new ListViewItemClickListener() );
     }
 
-    private void initDatabase() {
-
-        database = FirebaseDatabase.getInstance();
-
-        mDatabase = database.getReference();
-        mDatabase.child("log").setValue("check");
-
-        mChild = new ChildEventListener() {
-
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        mDatabase.addChildEventListener(mChild);
-    }
+//    private void initDatabase() {
+//
+//        database = FirebaseDatabase.getInstance();
+//
+//        mDatabase = database.getReference();
+//        mDatabase.child("log").setValue("check");
+//
+//        mChild = new ChildEventListener() {
+//
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        };
+//        mDatabase.addChildEventListener(mChild);
+//    }
 
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mDatabase.removeEventListener(mChild);
     }
 
 
@@ -316,7 +319,7 @@ public class MainActivity extends AppCompatActivity
                 storeList.clear();
 
                 for (DataSnapshot storeSnapshot : dataSnapshot.getChildren()) {
-                    storeList.add(String.valueOf(storeSnapshot.getKey()));
+                        storeList.add(String.valueOf(storeSnapshot.getKey()));
                 }
 
                 for(int i=0; i<4; i++){
@@ -422,6 +425,9 @@ public class MainActivity extends AppCompatActivity
         switch (view.getId()) {
             case R.id.add_review:
                 fr = new AddreviewFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("username", username);
+                fr.setArguments(bundle);
                 break;
         }
 

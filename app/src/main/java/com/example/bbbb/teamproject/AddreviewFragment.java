@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.text.Editable;
@@ -41,7 +42,7 @@ public class AddreviewFragment extends Fragment {
     private EditText reviewText;
     private AutoCompleteTextView searchText;
     private Button addbutton;
-    public String msg, name;
+    public String msg, name, user_name;
     private Activity activity;
 
     FirebaseDatabase database;
@@ -49,6 +50,16 @@ public class AddreviewFragment extends Fragment {
 
     private List<String> list;
 
+    private boolean destroy;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            user_name = bundle.getString("username");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
@@ -56,6 +67,7 @@ public class AddreviewFragment extends Fragment {
         reviewText = layout.findViewById(R.id.review_text);
         searchText = (AutoCompleteTextView) layout.findViewById(R.id.search_text);
         addbutton = layout.findViewById(R.id.button_review);
+        destroy=false;
 
         list = new ArrayList<String>();
         settingList();
@@ -80,11 +92,15 @@ public class AddreviewFragment extends Fragment {
                                 msg = reviewText.getText().toString();
                                 name = searchText.getText().toString();
 
-
-                                Toast.makeText(getContext(), name, Toast.LENGTH_SHORT).show();
-                                mDatabase.child("Review/" + name ).push().setValue(msg);
+//                                ((OnApplySelectedListener)activity).onCatagoryApplySelected(name);
+//                                Toast.makeText(getContext(), name, Toast.LENGTH_SHORT).show();
+                                mDatabase.child("Review/" + user_name ).child( name ).push().setValue(msg);
+//                                mDatabase.child("Review/" + name ).push().setValue(msg);
                                 mDatabase.child("AllReview/").push().setValue(msg);
 
+
+                                reviewText.setText("");
+                                searchText.setText("");
 
                             }
                         })
@@ -120,6 +136,23 @@ public class AddreviewFragment extends Fragment {
 
 
 
+    public boolean getdestroy()
+    {
+        return destroy;
+    }
+
+    public interface OnApplySelectedListener {
+
+         void onCatagoryApplySelected(String name);
+
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof Activity ) {
+            this.activity = (Activity) context;
+        }
+    }
 
 
 
