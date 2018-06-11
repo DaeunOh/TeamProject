@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-/**
- * Created by SUNSOOMIN on 2018-05-20.
- */
+
 
 public class SplashActivity extends Activity {
     @Override

@@ -36,6 +36,8 @@ public class ReviewFragment extends ListFragment {
          adapter.addItem(ContextCompat.getDrawable(getActivity(), R.drawable.home), "미솊", "마아아싯어서엉") ;
 
          return super.onCreateView(inflater, container, savedInstanceState);
+
+
          }
 
     @Override
@@ -47,6 +49,5 @@ public class ReviewFragment extends ListFragment {
 
 
     }
-
 
 }

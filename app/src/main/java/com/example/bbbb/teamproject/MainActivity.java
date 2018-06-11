@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,12 +47,19 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    FirebaseDatabase database;
+    DatabaseReference mDatabase;
+    private ChildEventListener mChild;
+
+
+
     private ImageButton imageButton1, imageButton2, imageButton3, imageButton4;
     private ImageView rimage;
     private TextView textView1, textView2, textView3, textView4;
 
     private Button mapButton;
     private Button sortButton;
+    public String  name;
 
     private List<RecyclerItem> recyclerItems;
 
@@ -154,9 +162,29 @@ public class MainActivity extends AppCompatActivity
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerItems = new ArrayList<>();
 
-        for (int i = 1; i <= 10; i++) {
-            recyclerItems.add(new RecyclerItem("아롤도그", R.drawable.alol, "참 맛나용"));
-        }
+
+        database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference("Review/꼬꼬아찌review");
+
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                recyclerItems.clear();
+
+                for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                    String msg2=messageData.getValue().toString();
+                    recyclerItems.add(new RecyclerItem(name, R.drawable.alol, msg2));
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -176,6 +204,49 @@ public class MainActivity extends AppCompatActivity
         recyclerView.addItemDecoration(new DividerItemDecoration(this, linearLayoutManager.getOrientation()));
 
     }
+
+    private void initDatabase() {
+
+        database = FirebaseDatabase.getInstance();
+
+        mDatabase = database.getReference();
+        mDatabase.child("log").setValue("check");
+
+        mChild = new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        mDatabase.addChildEventListener(mChild);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDatabase.removeEventListener(mChild);
+    }
+
 
     private void selectStore() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();

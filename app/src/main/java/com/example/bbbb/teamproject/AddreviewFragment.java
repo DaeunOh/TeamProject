@@ -21,14 +21,18 @@ import com.google.firebase.database.FirebaseDatabase;
 /**
  */
 
+
+
 public class AddreviewFragment extends Fragment {
 
     private EditText reviewText;
     private AutoCompleteTextView searchText ;
     private Button addbutton;
+    public String msg, name;
 
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference = firebaseDatabase.getReference();
+    FirebaseDatabase database;
+    DatabaseReference mDatabase;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState){
@@ -47,11 +51,19 @@ public class AddreviewFragment extends Fragment {
                         .setPositiveButton(R.string.enrollment, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                databaseReference.child("review").push().setValue(reviewText.getText().toString());
-
                                 Toast.makeText(getContext(),R.string.sucessreview, Toast.LENGTH_SHORT).show();
-                                searchText.setText("");
-                                reviewText.setText("");
+
+                                database = FirebaseDatabase.getInstance();
+                                mDatabase = database.getReference();
+
+                                msg=reviewText.getText().toString();
+                                name=searchText.getText().toString();
+
+                                Toast.makeText(getContext(),name,Toast.LENGTH_SHORT).show();
+                                mDatabase.child("Review/"+name+"review").push().setValue(msg);
+
+
+
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

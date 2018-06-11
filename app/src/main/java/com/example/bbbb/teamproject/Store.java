@@ -6,9 +6,12 @@ import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bbbb_ on 2018-05-23.
@@ -35,6 +41,8 @@ public class Store extends AppCompatActivity {
     DatabaseReference mPriceRef;
     DatabaseReference mTelRef;
     DatabaseReference mTypeRef;
+    DatabaseReference mReviewRef;
+
 
     StorageReference mStorageRef;
 
@@ -46,6 +54,12 @@ public class Store extends AppCompatActivity {
     Button telButton;
 
     String tel;
+
+    ListView reviewList;
+
+    ArrayAdapter adapter;
+
+    private List<String> ReviewList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +77,7 @@ public class Store extends AppCompatActivity {
         mPriceRef = mTitleRef.child("price");
         mTelRef = mTitleRef.child("tel");
         mTypeRef = mTitleRef.child("type");
+        mReviewRef = mDatabase.child("Review").child(title);
 
         // 가게 이미지
         mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + title + ".jpg");
@@ -73,11 +88,53 @@ public class Store extends AppCompatActivity {
         addressTextView = findViewById(R.id.store_address);
         // telTextView=findViewById(R.id.store_tel);
         telButton = findViewById(R.id.call_button);
+
+        reviewList=findViewById(R.id.store_reviewList);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        database = FirebaseDatabase.getInstance();
+        mDatabase = database.getReference();
+
+
+
+        mReviewRef = database.getReference("Review/꼬꼬아찌review");
+
+        mReviewRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+//                String name = dataSnapshot.getValue(String.class);
+                ReviewList.clear();
+
+
+
+                for (DataSnapshot storeSnapshot : dataSnapshot.getChildren()) {
+                    String a= storeSnapshot.getValue().toString();
+                        ReviewList.add(a);
+                }
+
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                recyclerItems.clear();
+//
+//                for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+//                    String msg2=messageData.getValue().toString();
+//                    recyclerItems.add(new RecyclerItem(name, R.drawable.alol, msg2));
+//
+//                }
+
+                adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ReviewList);
+                reviewList.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         mNameRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -93,11 +150,14 @@ public class Store extends AppCompatActivity {
         });
 
 
+
         mAddressRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String address = dataSnapshot.getValue(String.class);
                 addressTextView.setText(address);
+
+
             }
 
             @Override
