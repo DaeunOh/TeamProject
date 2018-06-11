@@ -7,4 +7,5 @@
     <color name="colorPink">#d95550</color>
     <color name="colorLightPink">#cc7976</color>
     <color name="color_reviewlistbg">#d6a09e</color>
+    <color name="colorReviewBackground">#11d95550</color>
 </resources>

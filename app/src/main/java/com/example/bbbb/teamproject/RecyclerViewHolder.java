@@ -1,6 +1,9 @@
 package com.example.bbbb.teamproject;
 
 import android.content.Context;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,9 +30,13 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     public RecyclerViewHolder(Context context, View itemView) {
         super(itemView);
         this.context = context;
-        store_name=itemView.findViewById(R.id.reviewlist_store);
-        image=itemView.findViewById(R.id.review_image);
-        review_content=itemView.findViewById(R.id.reviewlist_text);
+        store_name = itemView.findViewById(R.id.reviewlist_store);
+        image = itemView.findViewById(R.id.review_image);
+        image.setBackground(new ShapeDrawable(new OvalShape()));
+        if (Build.VERSION.SDK_INT >= 21) {
+            image.setClipToOutline(true);
+        }
+        review_content = itemView.findViewById(R.id.reviewlist_text);
         user_name=itemView.findViewById(R.id.review_username);
         // 뷰와 인스턴스 연결
     }
