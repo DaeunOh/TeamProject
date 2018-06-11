@@ -1,24 +1,34 @@
 package com.example.bbbb.teamproject;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +48,7 @@ public class Roulette {
     private Button nextButton;
     private Button typeOkButton;
     private Button priceOkButton;
+    private ViewGroup viewGroup;
 
     private int checkMethod = -1;
     private boolean checkType[] = new boolean[6];
@@ -92,7 +103,7 @@ public class Roulette {
                         // 종류별 탐색
                         if (checkMethod == 0) {
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-                            builder1.setTitle("원하는 종류를 선택해주세요.")
+                            builder1.setTitle("원하는 종류를 모두 선택해주세요.")
                                     .setMultiChoiceItems(
                                             items,
                                             new boolean[]{false, false, false, false, false, false},
@@ -251,8 +262,8 @@ public class Roulette {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                button.setVisibility(View.VISIBLE);
                 selectRandomStore(method);
+                button.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -298,7 +309,46 @@ public class Roulette {
         }
 
         int num = (int) (Math.random()*combinedList.size());
-        combinedList.get(num);
 
+        popupHelper(combinedList.get(num));
+    }
+
+    public void setViewGroup(ViewGroup viewGroup){
+        this.viewGroup = viewGroup;
+    }
+
+    public void popupHelper(final String name){
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.popup_select, viewGroup);
+
+        ImageView storeImageView = layout.findViewById(R.id.r_store_imageView);
+        TextView textView = layout.findViewById(R.id.r_store_name);
+
+        StorageReference mStorageRef;
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("restaurantImage/" + name + ".jpg");
+        Glide.with(context).using(new FirebaseImageLoader()).load(mStorageRef).diskCacheStrategy(DiskCacheStrategy.ALL).into(storeImageView);
+        textView.setText(name);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(layout)
+                .setPositiveButton("맛집으로 가기", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(context, Store.class);
+                        intent.putExtra("title", name);
+                        context.startActivity(intent);
+                        ((Activity)context).overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
+
+                    }
+                })
+                .setNegativeButton("닫기", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(context, "다시 도전해보세요!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

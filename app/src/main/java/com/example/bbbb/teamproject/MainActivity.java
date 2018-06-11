@@ -3,9 +3,7 @@ package com.example.bbbb.teamproject;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.res.ResourcesCompat;
@@ -21,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,11 +43,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AddreviewFragment.OnApplySelectedListener{
@@ -72,14 +68,11 @@ public class MainActivity extends AppCompatActivity
     private Button sortButton;
     public String  name, Name;
     String title,msg1,msg2;
-    ImageView image;
 
     private List<RecyclerItem> recyclerItems;
 
     private List<String> storeList = new ArrayList<>();
     private List<Integer> randomInt;
-
-    StorageReference mStorageRef;
 
     @Override
     public void onCatagoryApplySelected(String name){
@@ -150,8 +143,9 @@ public class MainActivity extends AppCompatActivity
 
         rimage = findViewById(R.id.RouletteImage);
 
-        new Roulette(MainActivity.this, rimage, rouletteButton).setComponents(rouletteButton);
-
+        Roulette roulette = new Roulette(MainActivity.this, rimage, rouletteButton);
+        roulette.setComponents(rouletteButton);
+        roulette.setViewGroup((ViewGroup) findViewById(R.id.popup));
 
         spec = host.newTabSpec("tab4");
         spec.setContent(R.id.tab_content4);
