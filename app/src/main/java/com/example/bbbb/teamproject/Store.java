@@ -65,8 +65,6 @@ public class Store extends AppCompatActivity {
 
     private ListViewAdapter adapter;
 
-    private List<ListViewItem> listViewItems;
-
     private List<String> ReviewList = new ArrayList<>();
 
 
@@ -97,17 +95,11 @@ public class Store extends AppCompatActivity {
 
         nameTextView = findViewById(R.id.store_name);
         addressTextView = findViewById(R.id.store_address);
-        // telTextView=findViewById(R.id.store_tel);
         telButton = findViewById(R.id.call_button);
 
         reviewList = findViewById(R.id.store_reviewList);
         noReviewImageView = findViewById(R.id.noReviewImageView);
         noReviewTextView = findViewById(R.id.noReviewTextView);
-
-//        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-//        View mHeaderView = layoutInflater.inflate(R.layout.fragment_review_content, reviewList, false);
-//        reviewList.addHeaderView(mHeaderView);
-
 
     }
 

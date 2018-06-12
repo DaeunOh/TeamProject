@@ -83,6 +83,8 @@ public class ReviewManageActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
         recyclerView.setAdapter(reviewAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
 

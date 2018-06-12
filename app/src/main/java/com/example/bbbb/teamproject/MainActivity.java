@@ -3,17 +3,15 @@ package com.example.bbbb.teamproject;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -36,7 +34,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,18 +41,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.reginald.swiperefresh.CustomSwipeRefreshLayout;
 
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-    FirebaseDatabase database;
-    DatabaseReference mDatabase;
+    private FirebaseDatabase database;
+    private DatabaseReference mDatabase;
 
     //searchview검색구현
     private ListView listView;
@@ -68,15 +64,16 @@ public class MainActivity extends AppCompatActivity
 
     private Button mapButton;
     private Button sortButton;
-    public String  name;
     private String username, reviewname;
-    String title,msg1,msg2;
+    private String msg1, msg2;
+    private String title;
 
     private List<RecyclerItem> recyclerItems;
 
     private List<String> storeList = new ArrayList<>();
     private List<Integer> randomInt;
 
+    private CustomSwipeRefreshLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,24 +86,19 @@ public class MainActivity extends AppCompatActivity
         ImageButton rouletteButton = (ImageButton) findViewById(R.id.button_roulette);
         mapButton = (Button) findViewById(R.id.button_map);
         sortButton = (Button) findViewById(R.id.button_sort);
-        Button reviewButton = (Button) findViewById(R.id.button_review);
 
         imageButton1 = findViewById(R.id.imageButton);
         imageButton2 = findViewById(R.id.imageButton2);
         imageButton3 = findViewById(R.id.imageButton3);
         imageButton4 = findViewById(R.id.imageButton4);
 
-
         textView1 = findViewById(R.id.textView);
         textView2 = findViewById(R.id.textView2);
         textView3 = findViewById(R.id.textView3);
         textView4 = findViewById(R.id.textView4);
 
-
-
         // 상점 선택
         selectStore();
-
 
         host.setup();
 
@@ -135,7 +127,6 @@ public class MainActivity extends AppCompatActivity
         spec.setContent(R.id.tab_content3);
         spec.setIndicator(null, ResourcesCompat.getDrawable(getResources(), R.drawable.tab_roulette, null));
         host.addTab(spec);
-
 
         //이미지를 직접 그려주는 방법
 
@@ -170,15 +161,12 @@ public class MainActivity extends AppCompatActivity
         // User information setting
         TextView userNameTV = nav_header_view.findViewById(R.id.userName);
         TextView userEmailTV = nav_header_view.findViewById(R.id.userEmail);
-        ImageView userPhotoIV = nav_header_view.findViewById(R.id.userPhoto);
 
         userNameTV.setText(myIntent.getStringExtra("userName"));
         userEmailTV.setText(myIntent.getStringExtra("userEmail"));
-        username= (String) userNameTV.getText();
-        //userPhotoIV.setImageURI(Uri.parse(myIntent.getStringExtra("userPhotoUrl")));
+        username = (String) userNameTV.getText();
 
-
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerItems = new ArrayList<>();
 
         Intent intent = getIntent();
@@ -214,8 +202,57 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        layout = findViewById(R.id.swipe_refresh);
+        layout.setOnRefreshListener(new CustomSwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        recyclerItems.clear();
+
+                        for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                            reviewname = messageData.getKey().toString();
+
+                            for (DataSnapshot messageData2 : dataSnapshot.child(reviewname).getChildren()) {
+                                msg1 = messageData2.getKey().toString();
+                                for (DataSnapshot messageData3 : dataSnapshot.child(reviewname).child(msg1).getChildren()) {
+                                    msg2 = (String) messageData3.getValue();
+                                    recyclerItems.add(new RecyclerItem(reviewname, msg1, msg2));
+                                }
+
+                            }
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                final RecyclerAdapter adapter = new RecyclerAdapter(MainActivity.this, recyclerItems);
+                adapter.setListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Intent intent = new Intent(MainActivity.this, Store.class);
+                        String store = recyclerItems.get(position).getName();
+                        intent.putExtra("title", store);
+                        startActivity(intent);
+                    }
+                });
+                adapter.notifyDataSetChanged();
+
+                recyclerView.setAdapter(adapter);
+                layout.refreshComplete();
+            }
+        });
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
 
         final RecyclerAdapter adapter = new RecyclerAdapter(MainActivity.this, recyclerItems);
         adapter.setListener(new OnItemClickListener() {
@@ -232,8 +269,6 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, linearLayoutManager.getOrientation()));
-
         //searchview 검색구현
         listView = findViewById(R.id.search_list);
         arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, mMeetings);
@@ -241,18 +276,19 @@ public class MainActivity extends AppCompatActivity
         FirebaseDatabase.getInstance().getReference().child("Restaurant").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
-                        String sname = childSnapShot.getKey();
-                        mMeetings.add(sname);
+                for (DataSnapshot childSnapShot : dataSnapshot.getChildren()) {
+                    String sname = childSnapShot.getKey();
+                    mMeetings.add(sname);
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        listView.setOnItemClickListener( new ListViewItemClickListener() );
+        listView.setOnItemClickListener(new ListViewItemClickListener());
     }
 
     @Override
@@ -276,14 +312,14 @@ public class MainActivity extends AppCompatActivity
                 storeList.clear();
 
                 for (DataSnapshot storeSnapshot : dataSnapshot.getChildren()) {
-                        storeList.add(String.valueOf(storeSnapshot.getKey()));
+                    storeList.add(String.valueOf(storeSnapshot.getKey()));
                 }
 
-                for(int i=0; i<4; i++){
-                    int num = (int) (Math.random()*storeList.size());
+                for (int i = 0; i < 4; i++) {
+                    int num = (int) (Math.random() * storeList.size());
 
-                    while(randomInt.contains(num)){
-                        num = (int) (Math.random()*storeList.size());
+                    while (randomInt.contains(num)) {
+                        num = (int) (Math.random() * storeList.size());
                     }
                     randomInt.add(num);
                 }
@@ -315,7 +351,7 @@ public class MainActivity extends AppCompatActivity
     public void onImageButtonClicked(View view) {
         Intent intent;
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.imageButton:
                 intent = new Intent(MainActivity.this, Store.class);
                 intent.putExtra("title", storeList.get(randomInt.get(0)));
@@ -441,7 +477,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.my_review) {
-            Intent intent = new Intent (MainActivity.this, ReviewManageActivity.class);
+            Intent intent = new Intent(MainActivity.this, ReviewManageActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);
             overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_left);
@@ -458,18 +494,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     //searchview검색 구현
-    private class ListViewItemClickListener implements AdapterView.OnItemClickListener
-    {
+    private class ListViewItemClickListener implements AdapterView.OnItemClickListener {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-        {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(MainActivity.this, Store.class);
             intent.putExtra("title", arrayAdapter.getItem(position));
             startActivity(intent);
 
         }
     }
-
 
 
 }

@@ -9,6 +9,73 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+    <RelativeLayout
+        android:id="@+id/tab_content4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.bingnerdranch.android.drawlayout_practice.ReviewFragment">
+
+        <RelativeLayout
+            android:id="@+id/tab_content4_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.bingnerdranch.android.drawlayout_practice.ReviewFragment">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/add_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:onClick="addReiew"
+                app:srcCompat="@drawable/ic_menu_send" />
+
+            <com.reginald.swiperefresh.CustomSwipeRefreshLayout
+                xmlns:swiperefresh="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/swipe_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                swiperefresh:refresh_mode="pull_mode"
+                swiperefresh:keep_refresh_head="true"
+                swiperefresh:enable_top_progress_bar="true"
+                swiperefresh:time_out_refresh_complete="2000"
+                swiperefresh:time_out_return_to_top="1000"
+                swiperefresh:return_to_top_duration="500"
+                swiperefresh:return_to_header_duration="500"
+                swiperefresh:top_progress_bar_color_1="@color/colorPink"
+                swiperefresh:top_progress_bar_color_2="#ee5522"
+                swiperefresh:top_progress_bar_color_3="#ffa600"
+                swiperefresh:top_progress_bar_color_4="@color/colorLightPink">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="380dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.v7.widget.RecyclerView>
+            </com.reginald.swiperefresh.CustomSwipeRefreshLayout>
+
+        </RelativeLayout>
+
+        <!--<LinearLayout-->
+        <!--android:id="@+id/review_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
+    </RelativeLayout>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/tab_content1"
         android:layout_width="match_parent"
@@ -142,60 +209,6 @@
 
 
     </android.support.constraint.ConstraintLayout>
-
-    <RelativeLayout
-        android:id="@+id/tab_content4"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.bingnerdranch.android.drawlayout_practice.ReviewFragment">
-
-        <RelativeLayout
-            android:id="@+id/tab_content4_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="com.bingnerdranch.android.drawlayout_practice.ReviewFragment">
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/add_review"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:onClick="addReiew"
-                app:srcCompat="@drawable/ic_menu_send" />
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="380dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                </android.support.v7.widget.RecyclerView>
-            </android.support.constraint.ConstraintLayout>
-
-        </RelativeLayout>
-
-        <!--<LinearLayout-->
-        <!--android:id="@+id/review_container"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="horizontal"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
-    </RelativeLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/tab_content2"
