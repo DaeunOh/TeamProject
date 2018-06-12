@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent loadingIntent = new Intent(this, LoadingActivity.class);
+        startActivity(loadingIntent);
 
         TabHost host = (TabHost) findViewById(R.id.host);
         ImageButton rouletteButton = (ImageButton) findViewById(R.id.button_roulette);

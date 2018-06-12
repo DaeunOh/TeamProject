@@ -74,6 +74,8 @@ public class Store extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
+        Intent loadingIntent = new Intent(this, LoadingActivity.class);
+        startActivity(loadingIntent);
 
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
